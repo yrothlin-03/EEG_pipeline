@@ -1,5 +1,5 @@
-dataset_name: TUAB  #  TUEG, SLEEPEDF, SEEDV, PHYSIONETMI, TUAB, FACED, BCI2A
-out_dir : /projects/EEG-foundation-model/RECH201/data_preprocessed # TO BE ADAPTED 
+dataset_name: BCI2A  #  TUEG, SLEEPEDF, SEEDV, PHYSIONETMI, TUAB, FACED, BCI2A
+out_dir : /projects/EEG-foundation-model/RECH202/data_preprocessed/tests # TO BE ADAPTED 
 logger_dir : /home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/logs/preprocessing # TO BE ADAPTED
 
 random_seed: 42
@@ -16,8 +16,8 @@ preprocessing_params:
   bandpass: false
   max_amp: 300.0  # in muV
   trim: 0.0
-  min_len_sec: 1.0
-  window_size_sec: 30.0
+  min_len_sec: 0.0
+  window_size_sec: 1.0
   overlap_sec: 0.0
   use_iir: true
 

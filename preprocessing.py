@@ -37,19 +37,22 @@ def extract_labeled_segments_idx(ann: mne.Annotations, sfreq: float, min_len_sec
 
 
 LastMode = Literal["drop", "pad_zero", "repeat", "last"]
-
+WindowMode = Literal["center", "none"]
 
 def extract_windows_from_array(
-    x: np.ndarray,          # (C, Tseg) important to be sure because I did not check it before
+    x: np.ndarray,
     sfreq: float,
     window_size_sec: float,
     overlap_sec: float,
+    window_mode: WindowMode = "center",
     last: LastMode = "last",
 ) -> Iterator[np.ndarray]:
     if window_size_sec <= 0:
         raise ValueError("window_size_sec must be > 0")
     if overlap_sec < 0 or overlap_sec >= window_size_sec:
         raise ValueError("overlap_sec must be in [0, window_size_sec)")
+    if window_mode not in ("center", "none"):
+        raise ValueError("window_mode must be 'center' or 'none'")
 
     n_win = int(round(window_size_sec * sfreq))
     n_step = int(round((window_size_sec - overlap_sec) * sfreq))
@@ -62,14 +65,27 @@ def extract_windows_from_array(
     x = x.astype(np.float32, copy=False)
 
     if n_times < n_win:
+        if window_mode == "none":
+            m = int(sfreq)
+            if m <= 0:
+                raise ValueError("sfreq must be > 0")
+            n = (n_times // m) * m
+            if n <= 0:
+                return
+            yield x[:, :n]
+            return
+
         half = n_win / 2.0
         center = int(round(n_times / 2.0))
         s = center - half
         e = center + half
+
         pad_left = int(max(0, -s))
         pad_right = int(max(0, e - n_times))
+
         s_clipped = int(max(0, s))
         e_clipped = int(min(n_times, e))
+
         w = x[:, s_clipped:e_clipped]
         if pad_left > 0 or pad_right > 0:
             w = np.pad(w, ((0, 0), (pad_left, pad_right)), mode="constant", constant_values=0.0)
@@ -98,7 +114,6 @@ def extract_windows_from_array(
                     tail = w[:, -1:]
                     pad = np.repeat(tail, missing, axis=1)
                     yield np.concatenate([w, pad], axis=1)
-                                                             
 
 
 
@@ -127,7 +142,13 @@ def preprocess_one_file(
     sub2range: Dict[str, List[Tuple[int, int]]] | None = None,
 ) -> Tuple[int, Dict[str, Any], int, Dict[str, List[Tuple[int,int]]]]:
 
+    logger.info(f"Preprocessing parameters : \n resample_rate={resample_rate} | bandpass={bandpass} | l_freq={l_freq} | h_freq={h_freq} | notch={notch} | max_amp={max_amp} | trim={trim} | min_len_sec={min_len_sec} | use_iir={use_iir} | normalize={normalize} | window_size_sec={window_size_sec} | overlap_sec={overlap_sec} ")
     raw, y, subject_id = preprocessor.load(file_path)
+    # logger.info("Annotations summary:")
+    # logger.info(f"  n_annotations = {len(y)}")
+    # logger.info(f"  onsets       = {y.onset}")
+    # logger.info(f"  durations    = {y.duration}")
+    # logger.info(f"  descriptions = {y.description}")
 
     if resample_rate is not None:
         raw.resample(resample_rate, npad="auto", verbose=False)
@@ -173,6 +194,8 @@ def preprocess_one_file(
             x_seg = x[:, s:e] 
             win_count = 0
             for x_w in extract_windows_from_array(x_seg, sfreq=sfreq, window_size_sec=window_size_sec, overlap_sec=overlap_sec, last="last"):
+                if win_count == 0:
+                    logger.info(f"Window shape: {x_w.shape}")
                 label_counts[y_label] = label_counts.get(y_label, 0) + 1
                 win_count += 1
                 n_win_total += 1
@@ -280,7 +303,7 @@ def preprocess_dataset(
     sub2range = {}
 
     for idx, file_path in enumerate(tqdm(files, desc="Processing files")):
-        n_win, total_windows, sub2range = preprocess_one_file(dataset_name, out_file_env, preprocessor, Path(file_path), logger=logger, log_step=log_step, debug=debug, step_idx=idx+1, global_window_idx=total_windows, sub2range=sub2range, **preprocessing_params)
+        n_win, total_windows, sub2range = preprocess_one_file(dataset_name, out_file_env, preprocessor, Path(file_path), logger=logger, log_step=log_step, debug=debug, step_idx=idx+1, global_window_idx=total_windows, sub2range=sub2range, **preprocessing_config)
         subj_id = preprocessor.get_subject_id(Path(file_path))
         all_subj_ids.add(subj_id)
         if idx%log_step == 0:
@@ -310,38 +333,38 @@ def preprocess_dataset(
 
 
 
-preprocessing_params = {
-    "resample_rate": 256,
-    "l_freq": 0.5,
-    "h_freq": 75.0,
-    "notch": 60.0,
-    "normalize": True,
-    "bandpass": False,
-    "max_amp": 300.0,  # in muV
-    "trim": 0.0,
-    "min_len_sec": 1.0,
-    "window_size_sec": 30.0,
-    "overlap_sec": 0.0,
-    "use_iir": True
-}
+# preprocessing_params = {
+#     "resample_rate": 256,
+#     "l_freq": 0.5,
+#     "h_freq": 75.0,
+#     "notch": 60.0,
+#     "normalize": True,
+#     "bandpass": False,
+#     "max_amp": 300.0,  # in muV
+#     "trim": 0.0,
+#     "min_len_sec": 1.0,
+#     "window_size_sec": 30.0,
+#     "overlap_sec": 0.0,
+#     "use_iir": True
+# }
 
-if __name__ == "__main__":
-    dataset_name = "TUEG"
-    dataset_dir = "/projects/EEG-foundation-model/tuh_eeg/v2.0.1/edf/"
-    out_dir = "/projects/EEG-foundation-model/RECH202/tests_preprocessing/"
-    log_path = "/home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/logs/tests/preprocessing.log"
-    files_ratio = 0.01
-    debug = True
-    logger = init_logger(log_path)
-    log_step = 20
-    preprocess_dataset(
-        dataset_name,
-        dataset_dir,
-        out_dir,
-        files_ratio,
-        logger=logger,
-        debug=debug,
-        log_step=log_step,
-        preprocessing_config=preprocessing_params,
-    )
+# if __name__ == "__main__":
+#     dataset_name = "TUEG"
+#     dataset_dir = "/projects/EEG-foundation-model/tuh_eeg/v2.0.1/edf/"
+#     out_dir = "/projects/EEG-foundation-model/RECH202/tests_preprocessing/"
+#     log_path = "/home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/logs/tests/preprocessing.log"
+#     files_ratio = 0.01
+#     debug = True
+#     logger = init_logger(log_path)
+#     log_step = 20
+#     preprocess_dataset(
+#         dataset_name,
+#         dataset_dir,
+#         out_dir,
+#         files_ratio,
+#         logger=logger,
+#         debug=debug,
+#         log_step=log_step,
+#         preprocessing_config=preprocessing_params,
+#     )
 

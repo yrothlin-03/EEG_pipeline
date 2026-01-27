@@ -1,6 +1,6 @@
 from datasets.base_model import PreprocessorModel
 from pathlib import Path
-from logging import Logger, getLogger
+from logging import Logger
 import mne
 import random
 import re
@@ -20,13 +20,16 @@ class BCI2A_preprocessor(PreprocessorModel):
     def __init__(self, dataset_dir: str | Path, logger: Logger = None):
 
         super().__init__(dataset_dir, logger)  
+        self.logger = logger
 
     def get_files(self, ratio: float, seed: int = 42) -> list[Path]:
         if not (0.0 < ratio <= 1.0):
             raise ValueError(f"ratio must be in (0, 1], got {ratio}")
 
         rootdir = Path(self.dataset_dir).expanduser()
-        files = list(rootdir.rglob("A0*T.gdf"))
+        filesT = list(rootdir.rglob("A0*T.gdf"))
+        # filesE = list(rootdir.rglob("A0*E.gdf"))
+        files = filesT
         if self.logger:
             self.logger.info(f"Found {len(files)} GDF files in {rootdir}")
 
@@ -70,7 +73,6 @@ class BCI2A_preprocessor(PreprocessorModel):
                 onsets.append(float(onset))
                 durations.append(float(dur) if float(dur) > 0 else 0.0)  
                 descriptions.append(str(class_id))
-
         return mne.Annotations(onset=onsets, duration=durations, description=descriptions, orig_time=None)
     
     def get_subject_id(self, file_path: Path) -> str:

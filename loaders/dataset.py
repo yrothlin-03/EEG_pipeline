@@ -88,7 +88,7 @@ class CustomDataset(Dataset):
             max_dbs=1,
         )
         with env.begin(write=False) as txn:
-            self.sub2range = pickle.loads(txn.get(b"__subj_ranges__"))
+            self.sub2range = pickle.loads(txn.get(b"__subject_ranges__"))
             self.total_len = pickle.loads(txn.get(b"__len__"))
         env.close()
 
