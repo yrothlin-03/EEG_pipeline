@@ -1,0 +1,82 @@
+dataset_name: CHBMIT  #  TUEG, SLEEPEDF, SEEDV, PHYSIONETMI, TUAB, FACED, BCI2A, SIENA, SHUMI, CHBMIT
+out_dir : /projects/EEG-foundation-model/RECH202/data_preprocessed/ # TO BE ADAPTED 
+logger_dir : /home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/eeg_data/logs/preprocessing # TO BE ADAPTED
+
+random_seed: 42
+num_workers: 4
+debug: False
+clean_up: true
+
+preprocessing_params:
+  resample_rate: 256
+  l_freq: 0.5
+  h_freq: 75.0
+  notch: 60.0
+  normalize: true
+  bandpass: false
+  max_amp: 300.0  # in muV
+  trim: 0.0
+  min_len_sec: 0.0
+  window_size_sec: 10.0
+  overlap_sec: 0.0
+  use_iir: true
+
+TUEG:
+  path: /projects/EEG-foundation-model/tuh_eeg/v2.0.1
+  log_step: 100
+  files_ratio: 0.1
+
+TUAB:
+  path: /projects/EEG-foundation-model/tuh_eeg_abnormal/v3.0.1
+  log_step: 100
+  files_ratio: 0.5
+
+TUAR:
+  path: /projects/EEG-foundation-model/tuh_eeg_artifact/v3.0.1
+  log_step: 100
+  files_ratio: 0.5
+
+SLEEPEDF:
+  path: /projects/EEG-foundation-model/sleep-edf/sleep-cassette
+  log_step: 50
+  files_ratio: 0.5
+
+SEEDV:
+  path: /projects/EEG-foundation-model/SEED-V
+  log_step: 10
+  files_ratio: 1.0
+
+PHYSIONETMI:
+  path: /projects/EEG-foundation-model/PhysioNetMI
+  log_step: 100
+  files_ratio: 1.0
+
+PHYSIONETP300:
+  path: /projects/EEG-foundation-model/PhysioNetP300
+  log_step: 50
+  files_ratio: 0.5
+
+BCI2A:
+  path: /projects/EEG-foundation-model/BCI-IV
+  log_step: 1
+  files_ratio: 1.0
+
+FACED:
+  path: /projects/EEG-foundation-model/faced/Processed_data
+  log_step: 10
+  files_ratio: 1.0
+
+SIENA:
+  path: /projects/EEG-foundation-model/Siena-scalp/physionet.org/files/siena-scalp-eeg/1.0.0
+  log_step: 10
+  files_ratio: 1.0
+
+SHUMI:
+  path: /projects/EEG-foundation-model/SHU-MI/mat
+  log_step: 10
+  files_ratio: 1.0
+
+CHBMIT:
+  path: /projects/EEG-foundation-model/CHB-MIT
+  log_step: 10
+  files_ratio: 1.0
