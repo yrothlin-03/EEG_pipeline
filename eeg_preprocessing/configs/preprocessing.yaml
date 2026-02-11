@@ -1,4 +1,4 @@
-dataset_name: CHBMIT  #  TUEG, SLEEPEDF, SEEDV, PHYSIONETMI, TUAB, FACED, BCI2A, SIENA, SHUMI, CHBMIT
+dataset_name: SHUMI  #  TUEG, SLEEPEDF, SEEDV, PHYSIONETMI, TUAB, FACED, BCI2A, SIENA, SHUMI, CHBMIT
 out_dir : /projects/EEG-foundation-model/RECH202/data_preprocessed/ # TO BE ADAPTED 
 logger_dir : /home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/eeg_data/logs/preprocessing # TO BE ADAPTED
 
@@ -17,7 +17,7 @@ preprocessing_params:
   max_amp: 300.0  # in muV
   trim: 0.0
   min_len_sec: 0.0
-  window_size_sec: 10.0
+  window_size_sec: 4.0
   overlap_sec: 0.0
   use_iir: true
 

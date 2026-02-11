@@ -1,0 +1,756 @@
+2026-02-11 15:19:14,437 - INFO - Output directory /projects/EEG-foundation-model/RECH202/data_preprocessed//SHUMI already exists. Cleaning up...
+2026-02-11 15:19:14,440 - INFO - Total subjects: 25 | Kept subjects: 25 | Total files : 125 | Kept files: 125
+2026-02-11 15:19:14,443 - INFO - Opened output LMDB file at /projects/EEG-foundation-model/RECH202/data_preprocessed/SHUMI/shumi.lmdb | map_size=500.00 GiB
+2026-02-11 15:19:14,449 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:15,923 - INFO - Extracted 89 labeled segments from file.
+2026-02-11 15:19:15,923 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:15,923 - INFO -   Segment 000: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,924 - INFO -   Segment 001: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,924 - INFO -   Segment 002: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,925 - INFO -   Segment 003: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,925 - INFO -   Segment 004: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,925 - INFO -   Segment 005: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,926 - INFO -   Segment 006: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,926 - INFO -   Segment 007: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,926 - INFO -   Segment 008: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,927 - INFO -   Segment 009: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,927 - INFO -   Segment 010: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,927 - INFO -   Segment 011: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,928 - INFO -   Segment 012: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,928 - INFO -   Segment 013: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,929 - INFO -   Segment 014: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,929 - INFO -   Segment 015: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,929 - INFO -   Segment 016: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,930 - INFO -   Segment 017: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,930 - INFO -   Segment 018: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,930 - INFO -   Segment 019: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,931 - INFO -   Segment 020: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,931 - INFO -   Segment 021: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,931 - INFO -   Segment 022: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,932 - INFO -   Segment 023: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,932 - INFO -   Segment 024: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,933 - INFO -   Segment 025: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,933 - INFO -   Segment 026: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,933 - INFO -   Segment 027: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,934 - INFO -   Segment 028: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,934 - INFO -   Segment 029: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,934 - INFO -   Segment 030: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,935 - INFO -   Segment 031: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,935 - INFO -   Segment 032: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,935 - INFO -   Segment 033: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,936 - INFO -   Segment 034: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,936 - INFO -   Segment 035: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,936 - INFO -   Segment 036: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,937 - INFO -   Segment 037: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,937 - INFO -   Segment 038: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,938 - INFO -   Segment 039: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,938 - INFO -   Segment 040: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,938 - INFO -   Segment 041: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,939 - INFO -   Segment 042: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,939 - INFO -   Segment 043: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,939 - INFO -   Segment 044: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,940 - INFO -   Segment 045: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,940 - INFO -   Segment 046: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,940 - INFO -   Segment 047: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,941 - INFO -   Segment 048: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,941 - INFO -   Segment 049: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,941 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:15,942 - INFO -   Segment 050: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,942 - INFO -   Segment 051: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,942 - INFO -   Segment 052: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,943 - INFO -   Segment 053: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,943 - INFO -   Segment 054: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,943 - INFO -   Segment 055: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,944 - INFO -   Segment 056: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,944 - INFO -   Segment 057: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,944 - INFO -   Segment 058: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,945 - INFO -   Segment 059: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,945 - INFO -   Segment 060: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,946 - INFO -   Segment 061: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,946 - INFO -   Segment 062: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,946 - INFO -   Segment 063: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,947 - INFO -   Segment 064: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,947 - INFO -   Segment 065: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,947 - INFO -   Segment 066: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,948 - INFO -   Segment 067: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,948 - INFO -   Segment 068: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,949 - INFO -   Segment 069: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,949 - INFO -   Segment 070: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,949 - INFO -   Segment 071: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,950 - INFO -   Segment 072: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,950 - INFO -   Segment 073: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,950 - INFO -   Segment 074: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,951 - INFO -   Segment 075: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,951 - INFO -   Segment 076: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,951 - INFO -   Segment 077: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,952 - INFO -   Segment 078: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,952 - INFO -   Segment 079: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,953 - INFO -   Segment 080: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,953 - INFO -   Segment 081: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,953 - INFO -   Segment 082: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,954 - INFO -   Segment 083: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,954 - INFO -   Segment 084: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,955 - INFO -   Segment 085: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,955 - INFO -   Segment 086: label=1, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,955 - INFO -   Segment 087: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:15,956 - INFO -   Segment 088: label=0, n_times=1024, extracted 1 windows.
+2026-02-11 15:19:16,057 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-020_ses-01_task_motorimagery_eeg.mat | Extracted 89 windows | label distribution: {1: 45, 0: 44}
+2026-02-11 15:19:16,059 - INFO - File 1: /projects/EEG-foundation-model/SHU-MI/mat/sub-020_ses-01_task_motorimagery_eeg.mat | Subject ID: 020 | Extracted 89 windows. Total windows so far: 89
+2026-02-11 15:19:16,059 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:17,009 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:17,021 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:17,140 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-019_ses-01_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {1: 49, 0: 46}
+2026-02-11 15:19:17,143 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:18,105 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:18,117 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:18,243 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-003_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:19:18,246 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:19,203 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:19,216 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:19,332 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-014_ses-04_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {0: 47, 1: 45}
+2026-02-11 15:19:19,336 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:20,389 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:20,403 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:20,526 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-023_ses-05_task_motorimagery_eeg.mat | Extracted 97 windows | label distribution: {0: 49, 1: 48}
+2026-02-11 15:19:20,529 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:21,514 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:21,528 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:21,640 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-010_ses-01_task_motorimagery_eeg.mat | Extracted 89 windows | label distribution: {0: 43, 1: 46}
+2026-02-11 15:19:21,643 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:22,790 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:22,806 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:22,936 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-007_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:22,939 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:23,947 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:23,960 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:24,088 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-004_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:24,091 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:25,207 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:25,220 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:25,348 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-013_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:19:25,351 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:26,337 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:26,351 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:26,476 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-024_ses-04_task_motorimagery_eeg.mat | Extracted 98 windows | label distribution: {1: 48, 0: 50}
+2026-02-11 15:19:26,479 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:27,477 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:27,490 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:27,611 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-019_ses-02_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {0: 47, 1: 48}
+2026-02-11 15:19:27,614 - INFO - File 11: /projects/EEG-foundation-model/SHU-MI/mat/sub-019_ses-02_task_motorimagery_eeg.mat | Subject ID: 019 | Extracted 95 windows. Total windows so far: 1055
+2026-02-11 15:19:27,615 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:28,637 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:28,651 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:28,775 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-017_ses-03_task_motorimagery_eeg.mat | Extracted 98 windows | label distribution: {1: 50, 0: 48}
+2026-02-11 15:19:28,779 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:29,769 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:29,782 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:29,910 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-020_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:29,913 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:30,926 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:30,940 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:31,067 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-009_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:31,070 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:32,304 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:32,319 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:32,440 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-010_ses-02_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 47, 0: 47}
+2026-02-11 15:19:32,443 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:33,457 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:33,471 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:33,598 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-007_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:33,601 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:34,582 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:34,596 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:34,711 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-004_ses-03_task_motorimagery_eeg.mat | Extracted 91 windows | label distribution: {0: 48, 1: 43}
+2026-02-11 15:19:34,714 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:35,723 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:35,736 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:35,864 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-013_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:35,867 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:36,808 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:36,822 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:36,924 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-024_ses-02_task_motorimagery_eeg.mat | Extracted 82 windows | label distribution: {1: 38, 0: 44}
+2026-02-11 15:19:36,927 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:37,917 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:37,930 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:38,057 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-003_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:38,061 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:39,063 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:39,076 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:39,197 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-014_ses-02_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {0: 48, 1: 47}
+2026-02-11 15:19:39,200 - INFO - File 21: /projects/EEG-foundation-model/SHU-MI/mat/sub-014_ses-02_task_motorimagery_eeg.mat | Subject ID: 014 | Extracted 95 windows. Total windows so far: 2015
+2026-02-11 15:19:39,200 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:40,199 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:40,213 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:40,339 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-023_ses-03_task_motorimagery_eeg.mat | Extracted 99 windows | label distribution: {0: 50, 1: 49}
+2026-02-11 15:19:40,341 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:41,339 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:41,353 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:41,479 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-009_ses-05_task_motorimagery_eeg.mat | Extracted 99 windows | label distribution: {0: 50, 1: 49}
+2026-02-11 15:19:41,482 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:42,595 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:42,610 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:42,702 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-024_ses-01_task_motorimagery_eeg.mat | Extracted 74 windows | label distribution: {1: 39, 0: 35}
+2026-02-11 15:19:42,705 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:43,750 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:43,764 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:43,891 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-010_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:19:43,895 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:44,882 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:44,895 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:45,012 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-007_ses-04_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {0: 46, 1: 46}
+2026-02-11 15:19:45,015 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:45,925 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:45,935 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:46,049 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-019_ses-04_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {1: 47, 0: 45}
+2026-02-11 15:19:46,052 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:46,964 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:46,976 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:47,091 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-003_ses-01_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {0: 44, 1: 48}
+2026-02-11 15:19:47,094 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:48,051 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:48,063 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:48,188 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-014_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:48,192 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:49,164 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:49,177 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:49,298 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-017_ses-05_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {1: 48, 0: 47}
+2026-02-11 15:19:49,301 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:50,291 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:50,304 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:50,432 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-020_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:50,435 - INFO - File 31: /projects/EEG-foundation-model/SHU-MI/mat/sub-020_ses-04_task_motorimagery_eeg.mat | Subject ID: 020 | Extracted 100 windows. Total windows so far: 2958
+2026-02-11 15:19:50,435 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:51,415 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:51,428 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:51,549 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-002_ses-02_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {1: 47, 0: 48}
+2026-02-11 15:19:51,552 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:52,551 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:52,565 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:52,686 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-015_ses-02_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {1: 48, 0: 47}
+2026-02-11 15:19:52,689 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:53,757 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:53,770 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:53,897 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-022_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:53,901 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:54,862 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:54,875 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:54,993 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-005_ses-03_task_motorimagery_eeg.mat | Extracted 93 windows | label distribution: {1: 46, 0: 47}
+2026-02-11 15:19:54,996 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:56,108 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:56,121 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:56,245 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-012_ses-03_task_motorimagery_eeg.mat | Extracted 97 windows | label distribution: {0: 49, 1: 48}
+2026-02-11 15:19:56,248 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:57,213 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:57,226 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:57,343 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-025_ses-02_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {1: 47, 0: 45}
+2026-02-11 15:19:57,346 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:58,330 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:58,342 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:58,466 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-018_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:19:58,469 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:19:59,367 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:59,377 - INFO - Window shape: (32, 1024)
+2026-02-11 15:19:59,491 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-002_ses-01_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {1: 46, 0: 46}
+2026-02-11 15:19:59,494 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:00,429 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:00,443 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:00,570 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-015_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:00,574 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:01,560 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:01,574 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:01,689 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-016_ses-05_task_motorimagery_eeg.mat | Extracted 91 windows | label distribution: {0: 47, 1: 44}
+2026-02-11 15:20:01,691 - INFO - File 41: /projects/EEG-foundation-model/SHU-MI/mat/sub-016_ses-05_task_motorimagery_eeg.mat | Subject ID: 016 | Extracted 91 windows. Total windows so far: 3913
+2026-02-11 15:20:01,692 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:02,862 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:02,875 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:03,002 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-021_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:03,007 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:03,959 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:03,972 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:04,091 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-001_ses-05_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 48, 0: 46}
+2026-02-11 15:20:04,094 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:05,106 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:05,119 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:05,247 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-008_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:05,250 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:06,348 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:06,362 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:06,472 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-025_ses-01_task_motorimagery_eeg.mat | Extracted 88 windows | label distribution: {1: 45, 0: 43}
+2026-02-11 15:20:06,476 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:07,481 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:07,495 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:07,623 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-011_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:07,627 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:08,597 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:08,610 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:08,728 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-006_ses-04_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {1: 47, 0: 45}
+2026-02-11 15:20:08,731 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:09,733 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:09,746 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:09,874 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-011_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:09,877 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:10,852 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:10,866 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:10,984 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-006_ses-01_task_motorimagery_eeg.mat | Extracted 93 windows | label distribution: {0: 48, 1: 45}
+2026-02-11 15:20:10,987 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:11,946 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:11,960 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:12,072 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-005_ses-05_task_motorimagery_eeg.mat | Extracted 89 windows | label distribution: {0: 43, 1: 46}
+2026-02-11 15:20:12,075 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:13,310 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:13,326 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:13,432 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-012_ses-05_task_motorimagery_eeg.mat | Extracted 83 windows | label distribution: {0: 36, 1: 47}
+2026-02-11 15:20:13,436 - INFO - File 51: /projects/EEG-foundation-model/SHU-MI/mat/sub-012_ses-05_task_motorimagery_eeg.mat | Subject ID: 012 | Extracted 83 windows. Total windows so far: 4852
+2026-02-11 15:20:13,436 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:14,409 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:14,423 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:14,534 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-025_ses-04_task_motorimagery_eeg.mat | Extracted 88 windows | label distribution: {1: 43, 0: 45}
+2026-02-11 15:20:14,537 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:15,500 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:15,512 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:15,630 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-021_ses-01_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 47, 0: 47}
+2026-02-11 15:20:15,633 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:16,601 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:16,615 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:16,734 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-018_ses-01_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {0: 48, 1: 46}
+2026-02-11 15:20:16,738 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:17,724 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:17,737 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:17,865 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-002_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:17,868 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:18,853 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:18,863 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:18,979 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-015_ses-04_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {1: 48, 0: 47}
+2026-02-11 15:20:18,983 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:19,907 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:19,920 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:20,037 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-022_ses-05_task_motorimagery_eeg.mat | Extracted 93 windows | label distribution: {0: 45, 1: 48}
+2026-02-11 15:20:20,040 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:21,027 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:21,040 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:21,151 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-008_ses-03_task_motorimagery_eeg.mat | Extracted 89 windows | label distribution: {0: 45, 1: 44}
+2026-02-11 15:20:21,155 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:22,100 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:22,110 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:22,228 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-011_ses-02_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 45, 0: 49}
+2026-02-11 15:20:22,231 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:23,212 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:23,225 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:23,343 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-006_ses-02_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 46, 0: 48}
+2026-02-11 15:20:23,347 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:24,394 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:24,407 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:24,534 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-018_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:24,537 - INFO - File 61: /projects/EEG-foundation-model/SHU-MI/mat/sub-018_ses-02_task_motorimagery_eeg.mat | Subject ID: 018 | Extracted 100 windows. Total windows so far: 5793
+2026-02-11 15:20:24,538 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:25,510 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:25,521 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:25,646 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-016_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:25,650 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:26,599 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:26,611 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:26,735 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-021_ses-02_task_motorimagery_eeg.mat | Extracted 99 windows | label distribution: {0: 50, 1: 49}
+2026-02-11 15:20:26,738 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:27,718 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:27,731 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:27,858 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-001_ses-03_task_motorimagery_eeg.mat | Extracted 99 windows | label distribution: {1: 49, 0: 50}
+2026-02-11 15:20:27,861 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:28,860 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:28,874 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:29,002 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-017_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:29,005 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:30,278 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:30,294 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:30,425 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-014_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:30,428 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:31,415 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:31,429 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:31,557 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-023_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:31,560 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:32,588 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:32,601 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:32,730 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-003_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:32,734 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:33,710 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:33,723 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:33,844 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-013_ses-04_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {0: 46, 1: 49}
+2026-02-11 15:20:33,847 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:34,968 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:34,981 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:35,107 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-009_ses-01_task_motorimagery_eeg.mat | Extracted 98 windows | label distribution: {0: 48, 1: 50}
+2026-02-11 15:20:35,111 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:36,110 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:36,123 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:36,251 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-024_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:36,254 - INFO - File 71: /projects/EEG-foundation-model/SHU-MI/mat/sub-024_ses-05_task_motorimagery_eeg.mat | Subject ID: 024 | Extracted 100 windows. Total windows so far: 6784
+2026-02-11 15:20:36,254 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:37,236 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:37,249 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:37,376 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-004_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:37,379 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:38,454 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:38,465 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:38,582 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-019_ses-03_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {0: 49, 1: 45}
+2026-02-11 15:20:38,585 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:39,532 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:39,544 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:39,670 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-017_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:39,673 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:40,584 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:40,595 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:40,719 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-020_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:20:40,722 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:41,710 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:41,723 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:41,850 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-009_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:41,853 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:42,827 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:42,840 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:42,959 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-007_ses-03_task_motorimagery_eeg.mat | Extracted 96 windows | label distribution: {0: 48, 1: 48}
+2026-02-11 15:20:42,961 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:43,874 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:43,884 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:44,008 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-010_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:44,011 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:44,944 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:44,957 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:45,077 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-013_ses-02_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 49, 0: 45}
+2026-02-11 15:20:45,080 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:46,000 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:46,012 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:46,115 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-024_ses-03_task_motorimagery_eeg.mat | Extracted 83 windows | label distribution: {1: 43, 0: 40}
+2026-02-11 15:20:46,118 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:47,081 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:47,093 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:47,215 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-004_ses-02_task_motorimagery_eeg.mat | Extracted 97 windows | label distribution: {1: 48, 0: 49}
+2026-02-11 15:20:47,218 - INFO - File 81: /projects/EEG-foundation-model/SHU-MI/mat/sub-004_ses-02_task_motorimagery_eeg.mat | Subject ID: 004 | Extracted 97 windows. Total windows so far: 7748
+2026-02-11 15:20:47,218 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:48,107 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:48,117 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:48,231 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-014_ses-03_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {0: 49, 1: 43}
+2026-02-11 15:20:48,234 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:49,205 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:49,219 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:49,338 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-023_ses-02_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 48, 0: 46}
+2026-02-11 15:20:49,341 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:50,302 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:50,315 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:50,432 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-003_ses-03_task_motorimagery_eeg.mat | Extracted 92 windows | label distribution: {0: 47, 1: 45}
+2026-02-11 15:20:50,435 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:51,440 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:51,453 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:51,581 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-013_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:51,585 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:52,603 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:52,616 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:52,739 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-009_ses-04_task_motorimagery_eeg.mat | Extracted 96 windows | label distribution: {1: 50, 0: 46}
+2026-02-11 15:20:52,742 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:53,689 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:53,702 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:53,811 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-004_ses-01_task_motorimagery_eeg.mat | Extracted 87 windows | label distribution: {1: 43, 0: 44}
+2026-02-11 15:20:53,815 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:54,795 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:54,809 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:54,937 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-007_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:54,940 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:55,942 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:55,956 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:56,080 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-010_ses-05_task_motorimagery_eeg.mat | Extracted 97 windows | label distribution: {1: 48, 0: 49}
+2026-02-11 15:20:56,083 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:57,109 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:57,123 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:57,246 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-023_ses-01_task_motorimagery_eeg.mat | Extracted 96 windows | label distribution: {0: 48, 1: 48}
+2026-02-11 15:20:57,249 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:58,266 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:58,280 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:58,398 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-019_ses-05_task_motorimagery_eeg.mat | Extracted 93 windows | label distribution: {1: 49, 0: 44}
+2026-02-11 15:20:58,401 - INFO - File 91: /projects/EEG-foundation-model/SHU-MI/mat/sub-019_ses-05_task_motorimagery_eeg.mat | Subject ID: 019 | Extracted 93 windows. Total windows so far: 8695
+2026-02-11 15:20:58,401 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:20:59,386 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:59,397 - INFO - Window shape: (32, 1024)
+2026-02-11 15:20:59,522 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-017_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:20:59,525 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:00,472 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:00,486 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:00,614 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-020_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:00,617 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:01,647 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:01,661 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:01,768 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-015_ses-03_task_motorimagery_eeg.mat | Extracted 85 windows | label distribution: {0: 39, 1: 46}
+2026-02-11 15:21:01,771 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:02,813 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:02,826 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:02,953 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-022_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:02,956 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:03,883 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:03,893 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:04,017 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-002_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 47, 0: 53}
+2026-02-11 15:21:04,019 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:04,913 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:04,923 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:05,035 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-012_ses-02_task_motorimagery_eeg.mat | Extracted 91 windows | label distribution: {1: 46, 0: 45}
+2026-02-11 15:21:05,036 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:05,962 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:05,974 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:06,092 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-025_ses-03_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 48, 0: 46}
+2026-02-11 15:21:06,093 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:07,084 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:07,098 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:07,255 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-005_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:07,256 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:08,234 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:08,248 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:08,357 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-022_ses-01_task_motorimagery_eeg.mat | Extracted 87 windows | label distribution: {0: 43, 1: 44}
+2026-02-11 15:21:08,358 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:09,349 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:09,359 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:09,484 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-018_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:09,485 - INFO - File 101: /projects/EEG-foundation-model/SHU-MI/mat/sub-018_ses-05_task_motorimagery_eeg.mat | Subject ID: 018 | Extracted 100 windows. Total windows so far: 9652
+2026-02-11 15:21:09,486 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:10,428 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:10,441 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:10,567 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-001_ses-04_task_motorimagery_eeg.mat | Extracted 99 windows | label distribution: {1: 50, 0: 49}
+2026-02-11 15:21:10,569 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:11,592 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:11,605 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:11,725 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-016_ses-04_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {0: 47, 1: 48}
+2026-02-11 15:21:11,726 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:12,712 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:12,726 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:12,847 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-021_ses-05_task_motorimagery_eeg.mat | Extracted 96 windows | label distribution: {1: 49, 0: 47}
+2026-02-11 15:21:12,849 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:13,851 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:13,861 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:13,985 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-012_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:13,986 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:14,899 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:14,909 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:15,028 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-008_ses-04_task_motorimagery_eeg.mat | Extracted 96 windows | label distribution: {1: 48, 0: 48}
+2026-02-11 15:21:15,029 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:15,931 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:15,941 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:16,057 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-005_ses-01_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 49, 0: 45}
+2026-02-11 15:21:16,059 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:16,988 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:17,000 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:17,119 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-006_ses-05_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {0: 49, 1: 46}
+2026-02-11 15:21:17,121 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:18,090 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:18,102 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:18,229 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-011_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:21:18,230 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:19,178 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:19,191 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:19,300 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-012_ses-04_task_motorimagery_eeg.mat | Extracted 87 windows | label distribution: {0: 45, 1: 42}
+2026-02-11 15:21:19,302 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:20,295 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:20,308 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:20,436 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-008_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:21:20,437 - INFO - File 111: /projects/EEG-foundation-model/SHU-MI/mat/sub-008_ses-01_task_motorimagery_eeg.mat | Subject ID: 008 | Extracted 100 windows. Total windows so far: 10614
+2026-02-11 15:21:20,437 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:21,441 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:21,454 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:21,581 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-025_ses-05_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:21,583 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:22,867 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:22,880 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:23,007 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-005_ses-04_task_motorimagery_eeg.mat | Extracted 99 windows | label distribution: {1: 50, 0: 49}
+2026-02-11 15:21:23,008 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:24,035 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:24,049 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:24,176 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-001_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:21:24,178 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:25,206 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:25,219 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:25,346 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-016_ses-01_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:25,348 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:26,336 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:26,346 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:26,468 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-015_ses-05_task_motorimagery_eeg.mat | Extracted 98 windows | label distribution: {1: 50, 0: 48}
+2026-02-11 15:21:26,470 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:27,396 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:27,409 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:27,536 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-022_ses-04_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:21:27,538 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:28,547 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:28,561 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:28,682 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-002_ses-05_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {1: 46, 0: 49}
+2026-02-11 15:21:28,683 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:29,727 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:29,740 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:29,861 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-008_ses-02_task_motorimagery_eeg.mat | Extracted 94 windows | label distribution: {1: 47, 0: 47}
+2026-02-11 15:21:29,863 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:30,837 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:30,847 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:30,965 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-006_ses-03_task_motorimagery_eeg.mat | Extracted 95 windows | label distribution: {1: 47, 0: 48}
+2026-02-11 15:21:30,966 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:31,893 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:31,903 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:32,028 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-011_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:21:32,029 - INFO - File 121: /projects/EEG-foundation-model/SHU-MI/mat/sub-011_ses-03_task_motorimagery_eeg.mat | Subject ID: 011 | Extracted 100 windows. Total windows so far: 11595
+2026-02-11 15:21:32,030 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:32,949 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:32,959 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:33,084 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-018_ses-03_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:21:33,086 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:34,030 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:34,042 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:34,168 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-001_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {0: 50, 1: 50}
+2026-02-11 15:21:34,170 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:35,122 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:35,133 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:35,260 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-016_ses-02_task_motorimagery_eeg.mat | Extracted 100 windows | label distribution: {1: 50, 0: 50}
+2026-02-11 15:21:35,261 - INFO - Preprocessing parameters : 
+ resample_rate=256 | bandpass=False | l_freq=0.5 | h_freq=75.0 | notch=60.0 | max_amp=300.0 | trim=0.0 | min_len_sec=0.0 | use_iir=True | normalize=True | window_size_sec=4.0 | overlap_sec=0.0 
+2026-02-11 15:21:36,226 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:36,239 - INFO - Window shape: (32, 1024)
+2026-02-11 15:21:36,357 - INFO - Finished processing file: /projects/EEG-foundation-model/SHU-MI/mat/sub-021_ses-03_task_motorimagery_eeg.mat | Extracted 93 windows | label distribution: {0: 46, 1: 47}
+2026-02-11 15:21:36,359 - INFO - Total unique subjects processed: 25
+2026-02-11 15:21:36,359 - INFO - Subject ID to ranges mapping (showing up to 20 subjects):
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 020 | Ranges: [(0, 89), (1153, 1253), (2858, 2958), (7078, 7178), (8795, 8895)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 019 | Ranges: [(89, 184), (960, 1055), (2479, 2571), (6884, 6978), (8602, 8695)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 003 | Ranges: [(184, 284), (1820, 1920), (2571, 2663), (6391, 6491), (7934, 8026)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 014 | Ranges: [(284, 376), (1920, 2015), (2663, 2763), (6191, 6291), (7748, 7840)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 023 | Ranges: [(376, 473), (2015, 2114), (6291, 6391), (7840, 7934), (8506, 8602)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 010 | Ranges: [(473, 562), (1353, 1447), (2287, 2387), (7374, 7474), (8409, 8506)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 007 | Ranges: [(562, 662), (1447, 1547), (2387, 2479), (7278, 7374), (8309, 8409)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 004 | Ranges: [(662, 762), (1547, 1638), (6784, 6884), (7651, 7748), (8222, 8309)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 013 | Ranges: [(762, 862), (1638, 1738), (6491, 6586), (7474, 7568), (8026, 8126)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 024 | Ranges: [(862, 960), (1738, 1820), (2213, 2287), (6684, 6784), (7568, 7651)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 017 | Ranges: [(1055, 1153), (2763, 2858), (6091, 6191), (6978, 7078), (8695, 8795)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 009 | Ranges: [(1253, 1353), (2114, 2213), (6586, 6684), (7178, 7278), (8126, 8222)]
+2026-02-11 15:21:36,360 - INFO -   Subject ID: 002 | Ranges: [(2958, 3053), (3630, 3722), (5128, 5228), (9080, 9180), (11211, 11306)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 015 | Ranges: [(3053, 3148), (3722, 3822), (5228, 5323), (8895, 8980), (11013, 11111)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 022 | Ranges: [(3148, 3248), (5323, 5416), (8980, 9080), (9465, 9552), (11111, 11211)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 005 | Ranges: [(3248, 3341), (4680, 4769), (9365, 9465), (10138, 10232), (10714, 10813)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 012 | Ranges: [(3341, 3438), (4769, 4852), (9180, 9271), (9942, 10042), (10427, 10514)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 025 | Ranges: [(3438, 3530), (4207, 4295), (4852, 4940), (9271, 9365), (10614, 10714)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 018 | Ranges: [(3530, 3630), (5034, 5128), (5693, 5793), (9552, 9652), (11595, 11695)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 016 | Ranges: [(3822, 3913), (5793, 5893), (9751, 9846), (10913, 11013), (11795, 11895)]
+2026-02-11 15:21:36,361 - INFO -   Subject ID: 021 | Ranges: [(3913, 4013), (4940, 5034), (5893, 5992), (9846, 9942), (11895, 11988)]
+2026-02-11 15:21:36,361 - INFO -   ...
+2026-02-11 15:21:36,361 - INFO - [END] Preprocessing completed. Total windows extracted: 11988

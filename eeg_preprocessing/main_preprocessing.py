@@ -60,7 +60,7 @@ def get_window_config(dataset: str, config: dict) -> dict:
 
 
 if __name__ == "__main__":
-    config_path = Path("/home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/configs/preprocessing.yaml")
+    config_path = Path("/home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/eeg_preprocessing/configs/preprocessing.yaml")
     config = get_preprocess_config(config_path)
     # config["dataset_name"] = "BCI2A"
     # window_configs = get_window_config("BCI2A", config)

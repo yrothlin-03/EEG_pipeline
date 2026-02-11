@@ -68,7 +68,8 @@ def build_loaders(
     pin_memory: bool = True,
     persistent_workers: bool = False,
     shuffle_val:  bool = False,
-    logger: Logger = None
+    logger: Logger = None,
+    channel_mode: str = "mapped",
 ):
     lmdb_path = str(lmdb_path)
 
@@ -87,9 +88,9 @@ def build_loaders(
     print(f"[LOADER] Validation subjects: {len(val_subjects)}")
     print(f"[LOADER] Test subjects: {len(test_subjects)}")
 
-    train_dataset = CustomDataset(lmdb_path, train_subjects)
-    val_dataset = CustomDataset(lmdb_path, val_subjects)
-    test_dataset = CustomDataset(lmdb_path, test_subjects)
+    train_dataset = CustomDataset(lmdb_path, train_subjects, channel_mode=channel_mode)
+    val_dataset = CustomDataset(lmdb_path, val_subjects, channel_mode=channel_mode)
+    test_dataset = CustomDataset(lmdb_path, test_subjects, channel_mode=channel_mode)
     shuffle_val = False
 
     train_loader = torch.utils.data.DataLoader(

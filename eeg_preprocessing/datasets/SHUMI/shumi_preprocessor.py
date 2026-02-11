@@ -66,7 +66,8 @@ class SHUMI_preprocessor(PreprocessorModel):
 
     def load_labels(self, file_path: Path, raw: mne.io.BaseRaw = None) -> mne.Annotations:
         mat = loadmat(file_path.as_posix())
-        y = np.asarray(mat["labels"]).reshape(-1)
+        y = np.asarray(mat["labels"]).reshape(-1) - 1
+        print(f"Loaded labels shape: {y.shape}, unique values: {np.unique(y)}")
         n = int(y.shape[0])
         seg_len = int(np.asarray(mat["data"]).shape[-1])
         dur = seg_len / (raw.info["sfreq"] if raw is not None else sfreq)

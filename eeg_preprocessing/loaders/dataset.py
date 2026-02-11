@@ -6,6 +6,9 @@ import re
 import torch
 from torch.utils.data import Dataset
 from .channel_mapping import (
+    _normalize_ch_name,
+    reorder_and_pad,
+    is_eeg_channel,
     EEG_LIKE_SET,
     _NON_EEG_PAT,
     TARGET_CHS,
@@ -19,6 +22,7 @@ from .channel_mapping import (
     SIENA_MAPPING,
     SHUMI_MAPPING,
     CHBMIT_MAPPING,
+
 )
 
 
@@ -41,51 +45,6 @@ def get_subject_ids(lmdb_path: Path) -> List[str]:
         env.close()
 
 ChannelMode = Literal["raw", "mapped"]
-
-def _normalize_ch_name(name: str) -> str:
-    s = str(name).upper().strip()
-    s = s.replace(".", "")
-    s = s.replace("EEG ", "")
-    s = s.replace("EEG-", "")
-    s = s.replace(" ", "")
-    s = re.split(r"[-:/]", s)[0].strip()
-    return s
-
-def is_eeg_channel(name: str) -> bool:
-    n = _normalize_ch_name(name)
-    if n.isdigit():
-        return True
-    if _NON_EEG_PAT.search(name):
-        return False
-    if n in EEG_LIKE_SET:
-        return True
-    if re.fullmatch(r"(FP|AF|F|FC|C|CP|P|PO|O|T)\d{1,2}Z?|[A-Z]{1,3}Z", n):
-        return True
-    return False
-
-
-
-
-def reorder_and_pad(x: torch.Tensor, kept_names: list[str], target_chs: list[str] = TARGET_CHS):
-
-    device = x.device
-    dtype = x.dtype
-    T = x.shape[1]
-
-    x_out = torch.zeros((len(target_chs), T), dtype=dtype, device=device)
-    mask  = torch.zeros((len(target_chs),), dtype=torch.bool, device=device)
-
-    target_pos = {ch: i for i, ch in enumerate(target_chs)}
-
-    for src_i, ch in enumerate(kept_names):
-        j = target_pos.get(ch, None)
-        if j is None:
-            continue
-        x_out[j] = x[src_i]
-        mask[j] = True
-
-    return x_out, mask
-
 
 
 class CustomDataset(Dataset):
@@ -114,11 +73,11 @@ class CustomDataset(Dataset):
         elif name.startswith("faced"):
             self.mapping = FACED_MAPPING
         elif name.startswith("siena"):
-            self.mapping = SEEDV_MAPPING
+            self.mapping = SIENA_MAPPING
         elif name.startswith("shumi"):
-            self.mapping = SEEDV_MAPPING
+            self.mapping = SHUMI_MAPPING
         elif name.startswith("chbmit"):
-            self.mapping = SEEDV_MAPPING
+            self.mapping = CHBMIT_MAPPING
         else:
             raise ValueError(f"Unknown dataset name from path stem: {p.stem}")
 
@@ -207,6 +166,9 @@ class CustomDataset(Dataset):
         if self.channel_mode == "raw":
             ch_names = rec.get("ch_names", [])
             eeg_idx = [i for i, ch in enumerate(ch_names) if is_eeg_channel(ch)]
+            if self.debug:
+                print(f"Original channels ({len(ch_names)}) : {ch_names}")
+                print(f"EEG channels ({len(eeg_idx)}) : {[ch_names[i] for i in eeg_idx]}")
             if len(eeg_idx) == 0:
                 return x, y
             x = x[eeg_idx].contiguous()
@@ -250,20 +212,17 @@ if __name__ == "__main__":
     sleepedfx_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SLEEPEDF/sleepedfx.lmdb"
     seedv_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SEEDV/seedv.lmdb"
     bci2a_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/BCI2A/bci2a.lmdb"
-    bci2a_path_30s = "/projects/EEG-foundation-model/RECH202/data_preprocessed/tests/ws_30s/BCI2A/bci2a.lmdb"
-    bci2a_path_10s = "/projects/EEG-foundation-model/RECH202/data_preprocessed/tests/ws_10s/BCI2A/bci2a.lmdb"
-    bci2a_path_1s = "/projects/EEG-foundation-model/RECH202/data_preprocessed/tests/ws_1s/BCI2A/bci2a.lmdb"
     faced_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/FACED/faced.lmdb"
     siena_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SIENA/siena.lmdb"
-    # shumi_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SHUMI/shumi.lmdb"
-    # chbmit_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/CHBMIT/chbmit.lmdb"
+    shumi_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SHUMI/shumi.lmdb"
+    chbmit_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/CHBMIT/chbmit.lmdb"
 
-    path = physionetmi_path
+    path = seedv_path
 
     dataset = CustomDataset(
         lmdb_path= path,
         subject_ids=get_subject_ids(Path(path)),
-        channel_mode="mapped",
+        channel_mode="raw",
         debug=True
     )
 
@@ -276,17 +235,15 @@ if __name__ == "__main__":
     print(mask.shape)  
     print(mask)
 
-
-    # Label distribution : 
-    print(f"starting to compute label distribution for dataset at {path}")
-    label_dataset = CustomDataset(
-        lmdb_path= path,
-        subject_ids=get_subject_ids(Path(path)),
-        channel_mode="mapped",
-        debug=False
-    )
-    y = {}
-    for i in range(len(label_dataset)):
-        _, label = label_dataset[i]
-        y[label] = y.get(label, 0) + 1
-    print("Label distribution:", y)
+    # print(f"starting to compute label distribution for dataset at {path}")
+    # label_dataset = CustomDataset(
+    #     lmdb_path= path,
+    #     subject_ids=get_subject_ids(Path(path)),
+    #     channel_mode="mapped",
+    #     debug=False
+    # )
+    # y = {}
+    # for i in range(len(label_dataset)):
+    #     _, label = label_dataset[i]
+    #     y[label] = y.get(label, 0) + 1
+    # print("Label distribution:", y)

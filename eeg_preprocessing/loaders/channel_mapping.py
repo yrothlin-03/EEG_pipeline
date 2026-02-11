@@ -1,24 +1,39 @@
 import re
+from pathlib import Path
+from typing import List, Literal
+import torch
 
 
 EEG_LIKE_SET = {
-    "FP1","FP2","FPZ","AFZ",
-    "F7","F3","F1","FZ","F2","F4","F8",
+    "FP1","FPZ","FP2",
+    "AF7","AF3","AFZ","AF4","AF8",
+    "F7","F5","F3","F1","FZ","F2","F4","F6","F8",
+    "FT7","FT8","FT9","FT10",
     "FC5","FC3","FC1","FCZ","FC2","FC4","FC6",
-    "T7","T3","C5","C3","C1","CZ","C2","C4","C6","T4","T8",
+    "T7","T8","T9","T10","T3","T4","T5","T6",
+    "C5","C3","C1","CZ","C2","C4","C6",
+    "TP7","TP8",
     "CP5","CP3","CP1","CPZ","CP2","CP4","CP6",
     "P7","P5","P3","P1","PZ","P2","P4","P6","P8",
     "PO7","PO3","POZ","PO4","PO8",
     "O1","OZ","O2",
+    "IZ",
+    "A1","A2"
 }
 
 _NON_EEG_PAT = re.compile(
     r"(EOG|EMG|ECG|EKG|PPG|PLETH|RESP|RESPIR|AIRFLOW|NASAL|THOR|ABDO|"
-    r"SNORE|MIC|AUX|TRIG|TRIGGER|EVENT|MARK|REF|GND|GROUND|A1|A2|"
+    r"SNORE|MIC|AUX|TRIG|TRIGGER|EVENT|MARK|REF|GND|GROUND|"
     r"M1|M2|EAR|MASTOID|CHIN|LEG|ARM|CHEST|BELT|TEMP|HEART|PULSE|"
     r"SaO2|SPO2|CO2|ETCO2|GSR|EDA|ACC|GYRO|MAG|PHOTO|PHOTIC)",
     re.IGNORECASE
 )
+
+
+_PREFIX_PAT = re.compile(r"^\s*(EEG|MEG|ECG|EKG)\s*[-:]?\s*", re.IGNORECASE)
+_SUFFIX_PAT = re.compile(r"\s*[-:]?\s*(REF|LE|RE)\s*$", re.IGNORECASE)
+_JUNK_PAT = re.compile(r"[.\s_]+")
+_KEEP_PAT = re.compile(r"[^A-Z0-9\-]+")
 
 
 
@@ -26,97 +41,107 @@ TARGET_CHS = ["FP1","FP2","F3","F4","C3","C4","P3","P4","O1","O2","F7","F8","T7"
 
 
 TUEG_MAPPING = {
-    "FP1": "FP1",
-    "FP2": "FP2",
-    "F7": "F7",
-    "F3": "F3",
-    "FZ": "FZ",
-    "F4": "F4",
-    "F8": "F8",
-
-    "T3": "T7",
-    "C3": "C3",
-    "CZ": "CZ",
-    "C4": "C4",
-    "T4": "T8",
-
-    "T5": "P7",
-    "P3": "P3",
-    "PZ": "PZ",
-    "P4": "P4",
-    "T6": "P8",
-
-    "O1": "O1",
-    "O2": "O2",
+    "FP1": "FP1", "FP2": "FP2",
+    "F7": "F7", "F3": "F3", "FZ": "FZ", "F4": "F4", "F8": "F8",
+    "T3": "T7", "T7": "T7",
+    "C3": "C3", "CZ": "CZ", "C4": "C4",
+    "T4": "T8", "T8": "T8",
+    "T5": "P7", "P7": "P7",
+    "P3": "P3", "PZ": "PZ", "P4": "P4",
+    "T6": "P8", "P8": "P8",
+    "O1": "O1", "O2": "O2",
 }
-
 
 TUAB_MAPPING = TUEG_MAPPING.copy()
 
-
 PHYSIONET_MAPPING = {
-    "FP1":"FP1","FP2":"FP2","F7":"F7","F3":"F3","FZ":"FZ","F4":"F4","F8":"F8",
-    "T7":"T7","T8":"T8","C3":"C3","CZ":"CZ","C4":"C4",
-    "P7":"P7","P3":"P3","PZ":"PZ","P4":"P4","P8":"P8",
-    "O1":"O1","O2":"O2",
+    **{k: k for k in TARGET_CHS},
+    "FPZ": "FZ", "FCZ": "FZ", "CPZ": "PZ", "POZ": "PZ",
+    "T3": "T7", "T4": "T8", "T5": "P7", "T6": "P8",
 }
 
 SLEEPEDFX_MAPPING = {
-    "FPZ": "FZ",   
-    "CZ":  "CZ",   
-    "PZ":  "PZ",   
-    "OZ":  "PZ",   
+    "FPZ": "FZ",
+    "CZ":  "CZ",
+    "PZ":  "PZ",
+    "OZ":  "O1",
 }
-
 
 SEEDV_MAPPING = {
-    "FP1": "FP1",
-    "FP2": "FP2",
-    "F7":  "F7",
-    "F3":  "F3",
-    "FZ":  "FZ",
-    "F4":  "F4",
-    "F8":  "F8",
-    "T7":  "T7",
-    "T8":  "T8",
-    "C3":  "C3",
-    "CZ":  "CZ",
-    "C4":  "C4",
-    "P7":  "P7",
-    "P3":  "P3",
-    "PZ":  "PZ",
-    "P4":  "P4",
-    "P8":  "P8",
-    "O1":  "O1",
-    "O2":  "O2",
-
-    "FPZ": "FZ",
-    "FCZ": "FZ",
-    "CPZ": "PZ",
-    "POZ": "PZ",
-
-    "AF3": "F3",
-    "AF4": "F4",
-    "F1":  "FZ",
-    "F2":  "FZ",
-    "FC1": "F3",
-    "FC2": "F4",
-    "C1":  "CZ",
-    "C2":  "CZ",
-    "CP1": "P3",
-    "CP2": "P4",
-    "P1":  "PZ",
-    "P2":  "PZ",
-    "PO3": "O1",
-    "PO4": "O2",
-    "PO7": "O1",
-    "PO8": "O2",
-    "OZ":  "PZ",  # bof bof, à redéfinir mais flemme là tout de suite
-
+    **{k: k for k in TARGET_CHS},
+    "FPZ": "FZ", "AFZ": "FZ", "FCZ": "FZ", "CPZ": "PZ", "POZ": "PZ",
+    "AF3": "F3", "AF4": "F4",
+    "F1": "FZ", "F2": "FZ",
+    "FC1": "F3", "FC2": "F4", "FC3": "F3", "FC4": "F4", "FC5": "F7", "FC6": "F8",
+    "C1": "CZ", "C2": "CZ", "C5": "C3", "C6": "C4",
+    "CP1": "P3", "CP2": "P4", "CP3": "P3", "CP4": "P4", "CP5": "P7", "CP6": "P8",
+    "P1": "PZ", "P2": "PZ", "P5": "P3", "P6": "P4",
+    "PO3": "O1", "PO4": "O2", "PO5": "O1", "PO6": "O2", "PO7": "O1", "PO8": "O2",
+    "OZ": "O1",
 }
 
+FACED_MAPPING = {
+    'FP1': 'FP1', 'FP2': 'FP2', 'FZ': 'FZ', 'F3': 'F3', 'F4': 'F4', 'F7': 'F7', 'F8': 'F8',
+    'FC1': 'FC1', 'FC2': 'FC2', 'FC5': 'FC5', 'FC6': 'FC6',
+    'CZ': 'CZ', 'C3': 'C3', 'C4': 'C4',
+    'T7': 'T7', 'T8': 'T8',
+    'CP1': 'CP1', 'CP2': 'CP2', 'CP5': 'CP5', 'CP6': 'CP6',
+    'PZ': 'PZ', 'P3': 'P3', 'P4': 'P4', 'P7': 'P7', 'P8': 'P8',
+    'PO3': 'PO3', 'PO4': 'PO4', 'OZ': 'OZ', 'O1': 'O1', 'O2': 'O2'
+}
 
+BCI2A_MAPPING = {
+    "FZ": "FZ",
+    "C3": "C3",
+    "CZ": "CZ",
+    "C4": "C4",
+    "PZ": "PZ",
 
+    "0":  "F3",
+    "1":  "F3",
+    "2":  "FZ",
+    "3":  "F4",
+    "4":  "F4",
+
+    "5":  "C3",
+    "6":  "C3",
+    "7":  "C4",
+    "8":  "C4",
+
+    "9":  "P3",
+    "10": "P3",
+    "11": "PZ",
+    "12": "P4",
+    "13": "P4",
+
+    "14": "P3",
+    "15": "P4",
+    "16": "PZ",
+}
+
+SIENA_MAPPING = {
+    "FP1": "FP1", "FP2": "FP2",
+    "F3": "F3", "F4": "F4", "F7": "F7", "F8": "F8", "FZ": "FZ",
+    "C3": "C3", "C4": "C4", "CZ": "CZ",
+    "P3": "P3", "P4": "P4", "PZ": "PZ",
+    "O1": "O1", "O2": "O2",
+    "FC1": "F3", "FC2": "F4", "FC5": "F7", "FC6": "F8",
+    "CP1": "P3", "CP2": "P4", "CP5": "P7", "CP6": "P8",
+    "T3": "T7", "T4": "T8", "T5": "P7", "T6": "P8",
+    "F9": "F7", "F10": "F8",
+}
+
+SHUMI_MAPPING = {
+    "FP1": "FP1", "FP2": "FP2",
+    "F3": "F3", "F4": "F4", "F7": "F7", "F8": "F8", "FZ": "FZ",
+    "C3": "C3", "C4": "C4", "CZ": "CZ",
+    "P3": "P3", "P4": "P4", "PZ": "PZ",
+    "O1": "O1", "O2": "O2", "OZ": "O1",
+    "PO3": "O1", "PO4": "O2",
+    "FC1": "F3", "FC2": "F4", "FC5": "F7", "FC6": "F8",
+    "CP1": "P3", "CP2": "P4", "CP5": "P7", "CP6": "P8",
+    "T3": "T7", "T4": "T8", "T5": "P7", "T6": "P8",
+}
 
 FACED_CHANNEL_LIST = [
     'FP1', 'FP2', 'FZ', 'F3', 'F4', 'F7', 'F8', 'FC1', 'FC2', 'FC5', 'FC6',
@@ -167,44 +192,105 @@ FACED_ADJACENCY_LIST = {
 }
 
 
-FACED_MAPPING = {
-    ch: ch for ch in FACED_CHANNEL_LIST
+
+CHBMIT_MAPPING = {
+    "FP1-F7":   "FP1",
+    "FP1-F3":   "FP1",
+    "FP2-F4":   "FP2",
+    "FP2-F8":   "FP2",
+
+    "F7-T7":    "F7",
+    "F8-T8":    "F8",
+
+    "F3-C3":    "F3",
+    "F4-C4":    "F4",
+
+    "T7-P7":    "T7",
+    "P7-T7":    "T7",
+    "T8-P8-0":  "T8",
+    "T8-P8-1":  "T8",
+
+    "C3-P3":    "C3",
+    "C4-P4":    "C4",
+
+    "C3-P3":    "C3",
+    "C4-P4":    "C4",
+
+    "P7-O1":    "P7",
+    "P8-O2":    "P8",
+
+    "C3-P3":    "C3",
+    "C4-P4":    "C4",
+
+    "P3-O1":    "P3",
+    "P4-O2":    "P4",
+
+    "CZ-PZ":    "CZ",
+    "FZ-CZ":    "FZ",
+
+    "T7-FT9":   "T7",
+    "FT10-T8":  "T8",
+    "FT9-FT10": "T7",
+    "FT10-T8":  "T8",
 }
 
 
 
-BCI2A_MAPPING = {
-    "FZ": "FZ",
+def _normalize_ch_name(ch_name: str) -> str:
+    if ch_name is None:
+        return ""
+    s = str(ch_name).strip()
+    s = _PREFIX_PAT.sub("", s)
+    s = _SUFFIX_PAT.sub("", s)
+    s = s.replace("–", "-").replace("—", "-")
+    s = s.upper()
+    s = _JUNK_PAT.sub("", s)
+    s = _KEEP_PAT.sub("", s)
+    if s.endswith(".."):
+        s = s[:-2]
+    # print(f"Normalized channel name: '{ch_name}' -> '{s}'")
+    return s
 
-    "0": "F3",   
-    "1": "F3",   
-    "2": "FZ",   
-    "3": "FZ",   
-    "4": "F4",   
-    "5": "F4",   
+def normalize_channels(ch_names: List[str]) -> List[str]:
+    return [_normalize_ch_name(ch) for ch in ch_names]
 
-    "C3": "C3",
-    "6": "CZ",   
-    "CZ": "CZ",
-    "7": "CZ",   
-    "C4": "C4",
-    "8": "CZ",   
+def is_eeg_channel(ch_name: str) -> bool:
+    raw = str(ch_name) if ch_name is not None else ""
+    if _NON_EEG_PAT.search(raw):
+        return False
+    n = _normalize_ch_name(raw)
+    if not n:
+        return False
 
-    "9":  "P3",  
-    "10": "PZ",  
-    "11": "PZ",  
-    "12": "PZ",  
-    "13": "P4",  
-    "14": "P3",  
-    "PZ": "PZ",
-    "15": "P4",  
-    "16": "PZ",  
-}
+    if n.isdigit():
+        return True
+
+    if "-" in n:
+        a, b = n.split("-", 1)
+        return (a in EEG_LIKE_SET) and (b.split("-", 1)[0] in EEG_LIKE_SET)
+
+    return n in EEG_LIKE_SET
+
+def eeg_channels(ch_names: List[str]) -> List[str]:
+    return [ch for ch in ch_names if is_eeg_channel(ch)]
 
 
+def reorder_and_pad(x: torch.Tensor, kept_names: list[str], target_chs: list[str] = TARGET_CHS):
+    device = x.device
+    dtype = x.dtype
+    T = x.shape[1]
 
-SIENA_MAPPING = {}
+    x_out = torch.zeros((len(target_chs), T), dtype=dtype, device=device)
+    mask  = torch.zeros((len(target_chs),), dtype=torch.bool, device=device)
 
-SHUMI_MAPPING = {}
+    target_pos = {ch: i for i, ch in enumerate(target_chs)}
 
-CHBMIT_MAPPING = {}
+    for src_i, ch in enumerate(kept_names):
+        j = target_pos.get(ch, None)
+        if j is None:
+            continue
+        x_out[j] = x[src_i]
+        mask[j] = True
+
+    return x_out, mask
+
