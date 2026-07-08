@@ -3,14 +3,16 @@ from pathlib import Path
 from logging import Logger
 import mne
 import random
-import re
 
 
 PATIENT_EPOCHS = {
   'PN00': [
     {'seizure': '1',  'file': 'PN00-1.edf',     'start_sec': 1143,  'end_sec': 1213},
     {'seizure': '2',  'file': 'PN00-2.edf',     'start_sec': 1220,  'end_sec': 1274},
-    {'seizure': '3',  'file': 'PN00-3.edf',     'start_sec': 765,   'end_sec': 4425},
+    # Official annotation lists seizure end at 19.29.29 while registration ends
+    # at 18.57.13 (>1h after recording stopped) -> corrupt value. Treated as a
+    # typo in the hour digit (19->18 => 18.29.29), giving a plausible ~60s seizure.
+    {'seizure': '3',  'file': 'PN00-3.edf',     'start_sec': 765,   'end_sec': 825},
     {'seizure': '4',  'file': 'PN00-4.edf',     'start_sec': 1006,  'end_sec': 1080},
     {'seizure': '5',  'file': 'PN00-5.edf',     'start_sec': 904,   'end_sec': 971},
   ],
@@ -108,6 +110,12 @@ PATIENT_EPOCHS = {
 
 
 
+# Defensive cap: any single seizure longer than this (seconds) is treated as a
+# corrupt annotation and skipped, to avoid mislabeling large inter-ictal spans
+# as ictal. Siena seizures range ~5-151s in the official annotations.
+MAX_SEIZURE_SEC = 600.0
+
+
 class SIENA_preprocessor(PreprocessorModel):
     def __init__(self, dataset_dir: str | Path, logger: Logger = None):
         super().__init__(dataset_dir, logger)
@@ -158,6 +166,13 @@ class SIENA_preprocessor(PreprocessorModel):
                 continue
             t = float(e["end_sec"])
             if t > s:
+                if (t - s) > MAX_SEIZURE_SEC:
+                    if self.logger:
+                        self.logger.warning(
+                            f"{file_path.name}: skipping implausible seizure "
+                            f"'{e.get('seizure')}' of {t - s:.0f}s (> {MAX_SEIZURE_SEC:.0f}s)."
+                        )
+                    continue
                 seizures.append((s, t))
 
         seizures.sort()

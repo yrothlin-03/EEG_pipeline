@@ -55,25 +55,29 @@ class SEEDV_preprocessor(PreprocessorModel):
             raise ValueError(f"ratio must be in (0, 1], got {ratio}")
 
         rootdir = Path(self.dataset_dir).expanduser()
-        cnts = sorted(rootdir.rglob("*.cnt"))
 
-        repaired_map = {}
-        for p in cnts:
-            if p.name.endswith("_repaired.cnt"):
-                orig = p.name.replace("_repaired.cnt", ".cnt")
-                repaired_map[orig] = p
+        if rootdir.name != "EEG_raw":
+            rootdir = rootdir / "EEG_raw"
 
-        files = [p for p in cnts if p.name not in repaired_map]
+        cnts = sorted(rootdir.glob("*.cnt"))
 
-        if self.logger:
-            self.logger.info(f"Found {len(files)} CNT files in {rootdir} (prefer *_repaired.cnt)")
+        repaired_base_names = {
+            p.name.replace("_repaired.cnt", ".cnt")
+            for p in cnts
+            if p.name.endswith("_repaired.cnt")
+        }
+
+        files = [
+            p for p in cnts
+            if not p.name.endswith("_repaired.cnt")
+            and p.name not in repaired_base_names
+        ]
 
         subj_ids = [self.get_subject_id(f) for f in files]
         unique_subj_ids = sorted(set(subj_ids))
 
         n_subj_total = len(unique_subj_ids)
-        n_subj_keep = int(n_subj_total * ratio)
-        n_subj_keep = max(1, n_subj_keep)
+        n_subj_keep = max(1, int(n_subj_total * ratio))
 
         rng = random.Random(seed)
         rng.shuffle(unique_subj_ids)
@@ -82,14 +86,19 @@ class SEEDV_preprocessor(PreprocessorModel):
         kept_files = [f for f, sid in zip(files, subj_ids) if sid in subj_ids_to_keep]
 
         if self.logger:
+            n_repaired = sum(p.name.endswith("_repaired.cnt") for p in cnts)
+            n_base_ignored = sum(p.name in repaired_base_names for p in cnts)
+            self.logger.info(f"Found {len(cnts)} CNT files in {rootdir}")
+            self.logger.info(f"Ignored {n_repaired} *_repaired.cnt files")
+            self.logger.info(f"Ignored {n_base_ignored} base files associated with *_repaired.cnt")
             self.logger.info(
                 f"Subject-wise selection: keeping {n_subj_keep}/{n_subj_total} subjects "
-                f"({ratio*100:.2f}%), resulting in {len(kept_files)}/{len(files)} files"
+                f"({ratio * 100:.2f}%), resulting in {len(kept_files)}/{len(files)} files"
             )
 
         return kept_files
-        
-
+    
+    
     def load_data(self, file_path: Path) -> mne.io.BaseRaw:
         return mne.io.read_raw_cnt(file_path.as_posix(), preload=True, verbose=False)
     

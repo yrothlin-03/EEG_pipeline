@@ -1,6 +1,6 @@
-dataset_name: SHUMI  #  TUEG, SLEEPEDF, SEEDV, PHYSIONETMI, TUAB, FACED, BCI2A, SIENA, SHUMI, CHBMIT
-out_dir : /projects/EEG-foundation-model/RECH202/data_preprocessed/ # TO BE ADAPTED 
-logger_dir : /home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/eeg_data/logs/preprocessing # TO BE ADAPTED
+dataset_name: METASPEECH  #  TUEG, SLEEPEDF, SEEDV, PHYSIONETMI, TUAB, FACED, BCI2A, SIENA, SHUMI, CHBMIT, BCI2020, KARAONE, CHISCO, METASPEECH
+out_dir : /projects/EEG-foundation-model/RECH202/tests_2 
+logger_dir : /home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/eeg_data/logs/tests
 
 random_seed: 42
 num_workers: 4
@@ -8,16 +8,14 @@ debug: False
 clean_up: true
 
 preprocessing_params:
-  resample_rate: 256
+  resample_rate: 200
   l_freq: 0.5
   h_freq: 75.0
-  notch: 60.0
-  normalize: true
+  normalize: false
   bandpass: false
-  max_amp: 300.0  # in muV
+  max_amp: 300000.0  # in muV
   trim: 0.0
   min_len_sec: 0.0
-  window_size_sec: 4.0
   overlap_sec: 0.0
   use_iir: true
 
@@ -25,58 +23,127 @@ TUEG:
   path: /projects/EEG-foundation-model/tuh_eeg/v2.0.1
   log_step: 100
   files_ratio: 0.1
-
-TUAB:
-  path: /projects/EEG-foundation-model/tuh_eeg_abnormal/v3.0.1
-  log_step: 100
-  files_ratio: 0.5
-
-TUAR:
-  path: /projects/EEG-foundation-model/tuh_eeg_artifact/v3.0.1
-  log_step: 100
-  files_ratio: 0.5
-
-SLEEPEDF:
-  path: /projects/EEG-foundation-model/sleep-edf/sleep-cassette
-  log_step: 50
-  files_ratio: 0.5
-
-SEEDV:
-  path: /projects/EEG-foundation-model/SEED-V
-  log_step: 10
-  files_ratio: 1.0
-
-PHYSIONETMI:
-  path: /projects/EEG-foundation-model/PhysioNetMI
-  log_step: 100
-  files_ratio: 1.0
-
-PHYSIONETP300:
-  path: /projects/EEG-foundation-model/PhysioNetP300
-  log_step: 50
-  files_ratio: 0.5
+  notch: 60.0  # USA (Temple University, Philadelphia)
+  window_size_sec: 30.0
 
 BCI2A:
   path: /projects/EEG-foundation-model/BCI-IV
   log_step: 1
   files_ratio: 1.0
+  notch: 50.0  # Austria (Graz)
+  window_size_sec: 4.0  # motor imagery trial length
+
+PHYSIONETMI:
+  path: /projects/EEG-foundation-model/PhysioNetMI
+  log_step: 100
+  files_ratio: 1.0
+  notch: 60.0  # USA (BCI2000)
+  window_size_sec: 4.0  # motor imagery trial length
+
+SLEEPEDF:
+  path: /projects/EEG-foundation-model/sleep-edf/sleep-cassette
+  log_step: 50
+  files_ratio: 0.5
+  notch: 50.0  # Netherlands
+  window_size_sec: 30.0  # sleep epoch length
 
 FACED:
-  path: /projects/EEG-foundation-model/faced/Processed_data
+  path: /projects/EEG-foundation-model/datalake/raw/faced/
   log_step: 10
   files_ratio: 1.0
+  notch: 50.0  # China
+  window_size_sec: 30.0
+
+SEEDV:
+  path: /projects/EEG-foundation-model/datalake/raw/SEED-V
+  log_step: 10
+  files_ratio: 1.0
+  notch: 50.0  # China
+  window_size_sec: 10.0
+
+
+TUAB:
+  path: /projects/EEG-foundation-model/tuh_eeg_abnormal/v3.0.1
+  log_step: 100
+  files_ratio: 0.5
+  notch: 60.0  # USA (Temple University, Philadelphia)
+  window_size_sec: 10.0
+
+TUAR:
+  path: /projects/EEG-foundation-model/tuh_eeg_artifact/v3.0.1
+  log_step: 100
+  files_ratio: 0.5
+  notch: 60.0  # USA (Temple University, Philadelphia)
+  window_size_sec: 10.0
+
+
+
+PHYSIONETP300:
+  path: /projects/EEG-foundation-model/PhysioNetP300
+  log_step: 50
+  files_ratio: 0.5
+  notch: 60.0  # USA
+  window_size_sec: 10.0
+
 
 SIENA:
   path: /projects/EEG-foundation-model/Siena-scalp/physionet.org/files/siena-scalp-eeg/1.0.0
   log_step: 10
   files_ratio: 1.0
+  notch: 50.0  # Italy
+  window_size_sec: 10.0
 
 SHUMI:
-  path: /projects/EEG-foundation-model/SHU-MI/mat
+  path: /projects/EEG-foundation-model/datalake/raw/SHU-MI/mat
   log_step: 10
   files_ratio: 1.0
+  notch: 50.0  # China (Shanghai)
+  window_size_sec: 4.0  # motor imagery trial length
 
 CHBMIT:
   path: /projects/EEG-foundation-model/CHB-MIT
   log_step: 10
   files_ratio: 1.0
+  notch: 60.0  # USA (Boston Children's Hospital)
+  window_size_sec: 10.0
+
+
+BCI2020:
+  path: /projects/EEG-foundation-model/RECH202/speech_raw_datasets/BCI2020 EEG Signal for Words
+  log_step: 10
+  files_ratio: 1.0
+  notch: 60.0  # South Korea
+  window_size_sec: 3.0  # imagined speech trial length
+
+KARAONE:
+  path: /projects/EEG-foundation-model/RECH202/speech_raw_datasets/kara_one/p/spoclab/users/szhao/EEG/data
+  log_step: 10
+  files_ratio: 1.0
+  notch: 60.0  # Canada (Toronto)
+  window_size_sec: 5.0  # imagined/spoken speech trial length
+
+
+CHISCO:
+  path: /projects/EEG-foundation-model/RECH202/speech_raw_datasets/ds005170
+  log_step: 10
+  files_ratio: 1.0
+  notch: 50.0  # China
+  # segment: which phase to extract per trial (paper Fig. 3)
+  #   "recall"  (default) — imagined speech: t+5.0s → t+8.3s (3.3s) — use window_size_sec ≤ 3.3
+  #   "reading"           — reading phase:   t+0.0s → t+5.0s (5.0s) — use window_size_sec ≤ 5.0
+  #   "full"              — reading+recall:  t+0.0s → t+8.3s (8.3s) — use window_size_sec ≤ 8.3
+  segment: recall
+  window_size_sec: 3.0  # ≤ 3.3 for "recall" segment
+
+
+METASPEECH:
+  path: /projects/EEG-foundation-model/RECH202/data/METAEEG
+  log_step: 10
+  files_ratio: 1.0
+  notch: 50.0  # Spain
+  # Keystroke epoch: [tmin, tmax] around each keypress (label = typed character).
+  tmin: -0.2
+  tmax: 0.8
+  skip_start_sec: 60.0 
+  include_tapping: false  # keep only typing tasks (task1/task2), drop finger-tapping runs
+  window_size_sec: 1.0  

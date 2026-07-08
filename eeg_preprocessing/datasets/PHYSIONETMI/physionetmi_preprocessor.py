@@ -6,16 +6,18 @@ import random
 import re
 
 
-PHYSIONETMI_STAGE_MAP = {"T0": 0, "T1": 1, "T2": 2}
-
-RUN_TO_Y = {
-    3: 0, 7: 0, 11: 0,
-    4: 1, 8: 1, 12: 1,
-    5: 2, 9: 2, 13: 2,
-    6: 3, 10: 3, 14: 3,
-}
-
+MI_RUNS = {4, 6, 8, 10, 12, 14}
 BASELINE_RUNS = {1, 2}
+
+RUN_DESC_TO_Y = {
+    4: {"T1": 0, "T2": 1},
+    8: {"T1": 0, "T2": 1},
+    12: {"T1": 0, "T2": 1},
+
+    6: {"T1": 2, "T2": 3},
+    10: {"T1": 2, "T2": 3},
+    14: {"T1": 2, "T2": 3},
+}
 
 
 class PHYSIONETMI_preprocessor(PreprocessorModel):
@@ -28,7 +30,9 @@ class PHYSIONETMI_preprocessor(PreprocessorModel):
             raise ValueError(f"ratio must be in (0, 1], got {ratio}")
 
         rootdir = Path(self.dataset_dir).expanduser()
-        files = list(rootdir.rglob("*.edf"))
+        files = sorted(rootdir.rglob("*.edf"))
+
+        files = [f for f in files if self._get_run_number(f) in MI_RUNS]
 
         subj_ids = [self.get_subject_id(f) for f in files]
         unique_subj_ids = sorted(set(subj_ids))
@@ -40,10 +44,7 @@ class PHYSIONETMI_preprocessor(PreprocessorModel):
         rng.shuffle(unique_subj_ids)
         subj_ids_to_keep = set(unique_subj_ids[:n_subj_keep])
 
-        kept_files = [f for f, sid in zip(files, subj_ids) if sid in subj_ids_to_keep]
-        kept_files = [f for f in kept_files if self._get_run_number(f) not in BASELINE_RUNS]
-
-        return kept_files
+        return [f for f, sid in zip(files, subj_ids) if sid in subj_ids_to_keep]
 
     def load_data(self, file_path: Path) -> mne.io.BaseRaw:
         return mne.io.read_raw_edf(file_path.as_posix(), preload=True, verbose=False)
@@ -57,19 +58,23 @@ class PHYSIONETMI_preprocessor(PreprocessorModel):
             raw = mne.io.read_raw_edf(file_path.as_posix(), preload=False, verbose=False)
 
         run = self._get_run_number(file_path)
-        if run in BASELINE_RUNS or run not in RUN_TO_Y:
-            raise ValueError(f"Invalid run: {file_path.name}")
-
-        y = RUN_TO_Y[run]
+        if run not in RUN_DESC_TO_Y:
+            raise ValueError(f"Invalid MI run: {file_path.name}")
 
         ann = raw.annotations
         onsets, durations, descriptions = [], [], []
 
         for onset, dur, desc in zip(ann.onset, ann.duration, ann.description):
-            if str(desc) in PHYSIONETMI_STAGE_MAP:
-                onsets.append(float(onset))
-                durations.append(float(dur) if float(dur) > 0 else 0.0)
-                descriptions.append(str(y))
+            desc = str(desc)
+
+            if desc not in {"T1", "T2"}:
+                continue
+
+            label = RUN_DESC_TO_Y[run][desc]
+
+            onsets.append(float(onset))
+            durations.append(4.0)
+            descriptions.append(str(label))
 
         return mne.Annotations(
             onset=onsets,

@@ -3,7 +3,7 @@ import lmdb
 import pickle
 import torch
 from pathlib import Path
-from typing import List, Tuple, Sequence
+from typing import List, Mapping, Sequence, Tuple
 from torch.utils.data import Dataset, DataLoader
 from .dataset import CustomDataset
 from logging import Logger
@@ -38,25 +38,165 @@ def split_subjects(all_subjects, split_ratio, seed=42):
     random.shuffle(subjects)
     n_total = len(subjects)
 
-    n_train = int(split_ratio[0] * n_total)
-    n_val   = int(split_ratio[1] * n_total)
-    n_test  = int(split_ratio[2] * n_total)
+    if n_total == 0:
+        return [], [], []
 
-    if n_total >= 3 and n_val == 0 and split_ratio[1] > 0:
-        n_val = 1
-    if n_total >= 2 and n_train == 0 and split_ratio[0] > 0:
-        n_train = 1
+    r_train, r_val, r_test = split_ratio
 
-    if n_test == 0:
-        n_val = n_total - n_train
-    else:
-        if n_train + n_val + n_test > n_total:
-            n_val = max(0, n_total - n_train - n_test)
+    n_train = round(r_train * n_total)
+    n_val   = round(r_val * n_total)
+    n_test  = round(r_test * n_total)
+
+    total = n_train + n_val + n_test
+
+    if total != n_total:
+        n_train += n_total - total
+
+    if n_total >= 3:
+        if r_train > 0 and n_train == 0:
+            n_train = 1
+        if r_val > 0 and n_val == 0:
+            n_val = 1
+        if r_test > 0 and n_test == 0:
+            n_test = 1
+
+    total = n_train + n_val + n_test
+    if total > n_total:
+        overflow = total - n_total
+        for name in ("train", "val", "test"):
+            if overflow == 0:
+                break
+            if name == "train" and n_train > 1:
+                n_train -= 1
+            elif name == "val" and n_val > 1:
+                n_val -= 1
+            elif name == "test" and n_test > 1:
+                n_test -= 1
+            overflow = n_train + n_val + n_test - n_total
 
     train = subjects[:n_train]
     val   = subjects[n_train:n_train + n_val]
     test  = subjects[n_train + n_val:n_train + n_val + n_test]
+
     return train, val, test
+
+
+def _to_id_list(ids: Sequence[str] | None) -> list[str] | None:
+    if ids is None:
+        return None
+    return [str(sid) for sid in ids]
+
+
+def _unpack_split_ids(
+    split_ids: Mapping[str, Sequence[str] | None] | Sequence[Sequence[str] | None] | None,
+) -> tuple[list[str] | None, list[str] | None, list[str] | None]:
+    if split_ids is None:
+        return None, None, None
+
+    if isinstance(split_ids, Mapping):
+        return (
+            _to_id_list(split_ids.get("train")),
+            _to_id_list(split_ids.get("val", split_ids.get("validation"))),
+            _to_id_list(split_ids.get("test")),
+        )
+
+    if len(split_ids) != 3:
+        raise ValueError("split_ids must contain exactly three lists: train, val, test.")
+
+    train_ids, val_ids, test_ids = split_ids
+    return _to_id_list(train_ids), _to_id_list(val_ids), _to_id_list(test_ids)
+
+
+def resolve_subject_splits(
+    all_subjects: Sequence[str],
+    split_ratio: Tuple[float, float, float],
+    seed: int = 42,
+    split_ids: Mapping[str, Sequence[str] | None] | Sequence[Sequence[str] | None] | None = None,
+    train_ids: Sequence[str] | None = None,
+    val_ids: Sequence[str] | None = None,
+    test_ids: Sequence[str] | None = None,
+):
+    explicit_train, explicit_val, explicit_test = _unpack_split_ids(split_ids)
+
+    if train_ids is not None:
+        explicit_train = _to_id_list(train_ids)
+    if val_ids is not None:
+        explicit_val = _to_id_list(val_ids)
+    if test_ids is not None:
+        explicit_test = _to_id_list(test_ids)
+
+    explicit = {
+        "train": explicit_train,
+        "val": explicit_val,
+        "test": explicit_test,
+    }
+
+    if all(ids is None for ids in explicit.values()):
+        return split_subjects(list(all_subjects), split_ratio=split_ratio, seed=seed), "ratio"
+
+    known_subjects = set(all_subjects)
+    seen_by_split = {}
+    for split_name, ids in explicit.items():
+        if ids is None:
+            continue
+
+        duplicates = sorted({sid for sid in ids if ids.count(sid) > 1})
+        if duplicates:
+            raise ValueError(f"Duplicate subject IDs in {split_name} split: {duplicates}")
+
+        unknown = sorted(set(ids) - known_subjects)
+        if unknown:
+            raise ValueError(f"Unknown subject IDs in {split_name} split: {unknown}")
+
+        for sid in ids:
+            if sid in seen_by_split:
+                raise ValueError(
+                    f"Subject ID {sid!r} is present in both "
+                    f"{seen_by_split[sid]!r} and {split_name!r} splits."
+                )
+            seen_by_split[sid] = split_name
+
+    remaining_subjects = [sid for sid in all_subjects if sid not in seen_by_split]
+    missing_splits = [name for name, ids in explicit.items() if ids is None]
+
+    generated = {"train": [], "val": [], "test": []}
+    if missing_splits and remaining_subjects:
+        ratio_by_split = {
+            "train": float(split_ratio[0]),
+            "val": float(split_ratio[1]),
+            "test": float(split_ratio[2]),
+        }
+        missing_ratio_sum = sum(ratio_by_split[name] for name in missing_splits)
+        if missing_ratio_sum > 0:
+            adjusted_ratio = tuple(
+                ratio_by_split[name] / missing_ratio_sum if name in missing_splits else 0.0
+                for name in ("train", "val", "test")
+            )
+            gen_train, gen_val, gen_test = split_subjects(
+                remaining_subjects, split_ratio=adjusted_ratio, seed=seed
+            )
+            generated.update({"train": gen_train, "val": gen_val, "test": gen_test})
+
+    train_subjects = explicit_train if explicit_train is not None else generated["train"]
+    val_subjects = explicit_val if explicit_val is not None else generated["val"]
+    test_subjects = explicit_test if explicit_test is not None else generated["test"]
+
+    return (train_subjects, val_subjects, test_subjects), "ids"
+
+
+
+
+def collate(batch):
+    if len(batch[0]) == 3:
+        xs = torch.stack([b[0] for b in batch], dim=0)
+        ys = torch.tensor([b[1] for b in batch], dtype=torch.long)
+        ch_names = [b[2] for b in batch]
+        return xs, ys, ch_names
+
+    xs = torch.stack([b[0] for b in batch], dim=0)
+    ys = torch.tensor([b[1] for b in batch], dtype=torch.long)
+    return xs, ys
+
 
 
 def build_loaders(
@@ -70,27 +210,40 @@ def build_loaders(
     shuffle_val:  bool = False,
     logger: Logger = None,
     channel_mode: str = "mapped",
+    return_ch_names: bool = False,
+    split_ids: Mapping[str, Sequence[str] | None] | Sequence[Sequence[str] | None] | None = None,
+    train_ids: Sequence[str] | None = None,
+    val_ids: Sequence[str] | None = None,
+    test_ids: Sequence[str] | None = None,
 ):
     lmdb_path = str(lmdb_path)
 
     all_subjects = get_subject_ids(Path(lmdb_path))
-    train_subjects, val_subjects, test_subjects = split_subjects(
-        all_subjects, split_ratio=split_ratio, seed=seed
+    (train_subjects, val_subjects, test_subjects), split_source = resolve_subject_splits(
+        all_subjects,
+        split_ratio=split_ratio,
+        seed=seed,
+        split_ids=split_ids,
+        train_ids=train_ids,
+        val_ids=val_ids,
+        test_ids=test_ids,
     )
     if logger:
         logger.info(f"[LOADER] Total subjects: {len(all_subjects)}")
-        logger.info(f"[LOADER] Train subjects: {len(train_subjects)}")
-        logger.info(f"[LOADER] Validation subjects: {len(val_subjects)}")
-        logger.info(f"[LOADER] Test subjects: {len(test_subjects)}")
+        logger.info(f"[LOADER] Split source: {split_source}")
+        logger.info(f"[LOADER] Train subjects: {len(train_subjects)} | {train_subjects}")
+        logger.info(f"[LOADER] Validation subjects: {len(val_subjects)} | {val_subjects}")
+        logger.info(f"[LOADER] Test subjects: {len(test_subjects)} | {test_subjects} ")
 
     print(f"[LOADER] Total subjects: {len(all_subjects)}")
-    print(f"[LOADER] Train subjects: {len(train_subjects)}")
-    print(f"[LOADER] Validation subjects: {len(val_subjects)}")
-    print(f"[LOADER] Test subjects: {len(test_subjects)}")
+    print(f"[LOADER] Split source: {split_source}")
+    print(f"[LOADER] Train subjects: {len(train_subjects)} | {train_subjects}")
+    print(f"[LOADER] Validation subjects: {len(val_subjects)} | {val_subjects}")
+    print(f"[LOADER] Test subjects: {len(test_subjects)} | {test_subjects}")
 
-    train_dataset = CustomDataset(lmdb_path, train_subjects, channel_mode=channel_mode)
-    val_dataset = CustomDataset(lmdb_path, val_subjects, channel_mode=channel_mode)
-    test_dataset = CustomDataset(lmdb_path, test_subjects, channel_mode=channel_mode)
+    train_dataset = CustomDataset(lmdb_path, train_subjects, channel_mode=channel_mode, return_ch_names=return_ch_names)
+    val_dataset = CustomDataset(lmdb_path, val_subjects, channel_mode=channel_mode, return_ch_names=return_ch_names)
+    test_dataset = CustomDataset(lmdb_path, test_subjects, channel_mode=channel_mode, return_ch_names=return_ch_names)
     shuffle_val = False
 
     train_loader = torch.utils.data.DataLoader(
@@ -101,6 +254,7 @@ def build_loaders(
         pin_memory=pin_memory,
         persistent_workers=persistent_workers,
         drop_last=False,
+        collate_fn=collate,
     )
     val_loader = torch.utils.data.DataLoader(
         val_dataset,
@@ -110,6 +264,7 @@ def build_loaders(
         pin_memory=pin_memory,
         persistent_workers=persistent_workers,
         drop_last=False,
+        collate_fn=collate,
     )
 
     test_loader = None
@@ -122,6 +277,7 @@ def build_loaders(
             pin_memory=pin_memory,
             persistent_workers=persistent_workers,
             drop_last=False,
+            collate_fn=collate,
         )
 
     return train_loader, val_loader, test_loader
@@ -178,60 +334,3 @@ def plot_random_eeg_samples(
 
 
 
-
-
-if __name__ == "__main__":
-    tueg_path = "/projects/EEG-foundation-model/RECH202/tueg_preprocessed/tueg.lmdb"
-    tuab_path = "/projects/EEG-foundation-model/RECH202/tuab_preprocessed/tuab.lmdb"
-    physionetmi_path = "/projects/EEG-foundation-model/RECH202/physionetmi_preprocessed/physionetmi.lmdb"
-    sleepedfx_path = "/projects/EEG-foundation-model/RECH202/sleepedfx_preprocessed/sleepedfx.lmdb"
-    seedv_path = "/projects/EEG-foundation-model/RECH202/seedv_preprocessed/seedv.lmdb"
-    bci2a_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/BCI2A/bci2a.lmdb"
-    bci2a_path_30s = "/projects/EEG-foundation-model/RECH202/data_preprocessed/tests/ws_30s/BCI2A/bci2a.lmdb"
-    bci2a_path_10s = "/projects/EEG-foundation-model/RECH202/data_preprocessed/tests/ws_10s/BCI2A/bci2a.lmdb"
-    bci2a_path_1s = "/projects/EEG-foundation-model/RECH202/data_preprocessed/tests/ws_1s/BCI2A/bci2a.lmdb"
-    faced_path = "/projects/EEG-foundation-model/RECH202/faced_preprocessed/faced.lmdb"
-    siena_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SIENA/siena.lmdb"
-    shumi_path = "/projects/EEG-foundation-model/SHU-MI/mat"
-    chbmit_path = "/projects/EEG-foundation-model/CHB-MIT"
-
-    subject_ids = get_subject_ids(Path(siena_path))
-
-    dataset = CustomDataset(
-        lmdb_path= siena_path,
-        subject_ids=subject_ids
-    )
-
-    # plot_random_eeg_samples(
-    #     ds=dataset,
-    #     out_dir="/home/infres/yrothlin-24/EEG_preprocessing_TELECOM_PARIS/figures/random_eeg_samples/siena",
-    #     n_samples=8,
-    #     n_channels=6,
-    #     seed=42,
-    #     t_len=None,
-    # )
-
-
-    # test on tuab
-    # train_loader, val_loader, test_loader = build_loaders(
-    #     bci2a_path,
-    #     split_ratio=(0.8, 0.1, 0.1),
-    #     batch_size=1,
-    #     seed=42,
-    #     num_workers=2,
-    #     pin_memory=True,
-    #     persistent_workers=False,
-    #     shuffle_val=False,
-    # )
-
-    # for batch in train_loader:
-    #     x,y = batch
-    #     x_np = x.detach().cpu().numpy() if hasattr(x, "detach") else np.asarray(x)
-
-    #     mean_ch = x_np.mean(axis=-1)          # (C,)
-    #     std_ch  = x_np.std(axis=-1)           # (C,)
-    #     print(x.shape, y.shape)
-    #     print(f"Mean per channel: {mean_ch}")
-    #     print(f"Std per channel: {std_ch}")
-    #     print(y)
-    #     break

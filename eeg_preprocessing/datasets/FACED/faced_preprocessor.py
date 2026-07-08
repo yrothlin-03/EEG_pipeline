@@ -55,7 +55,11 @@ class FACED_preprocessor(PreprocessorModel):
             raise ValueError(f"ratio must be in (0, 1], got {ratio}")
 
         rootdir = Path(self.dataset_dir).expanduser()
-        files = list(rootdir.rglob("sub*.pkl"))
+
+        if rootdir.name != "Processed_data":
+            rootdir = rootdir / "Processed_data"
+
+        files = sorted(rootdir.glob("sub*.pkl"))
 
         if self.logger:
             self.logger.info(f"Found {len(files)} PKL files in {rootdir}")
@@ -64,8 +68,7 @@ class FACED_preprocessor(PreprocessorModel):
         unique_subj_ids = sorted(set(subj_ids))
 
         n_subj_total = len(unique_subj_ids)
-        n_subj_keep = int(n_subj_total * ratio)
-        n_subj_keep = max(1, n_subj_keep)
+        n_subj_keep = max(1, int(n_subj_total * ratio))
 
         rng = random.Random(seed)
         rng.shuffle(unique_subj_ids)
@@ -83,9 +86,19 @@ class FACED_preprocessor(PreprocessorModel):
         
 
     def load_data(self, file_path: Path) -> mne.io.BaseRaw:
+        print(f"[LOAD_DATA] {file_path.resolve()}")
+
         with open(file_path, "rb") as f:
             data = pickle.load(f)
-            data = data[:,:30,:]
+
+        print(
+            f"[LOAD_DATA] type={type(data)} "
+            f"shape={getattr(data, 'shape', None)} "
+            f"ndim={getattr(data, 'ndim', None)}"
+        )
+
+        data = data[:, :30, :]
+
 
         if not isinstance(data, np.ndarray) or data.ndim != 3:
             raise ValueError(f"Unexpected FACED pkl content: type={type(data)}, shape={getattr(data, 'shape', None)}")
@@ -106,10 +119,46 @@ class FACED_preprocessor(PreprocessorModel):
         return mne.io.RawArray(x, info, verbose=False)
     
 
+    # def load_labels(self, file_path: Path, raw: mne.io.BaseRaw = None) -> mne.Annotations:
+    #     n_trials = 28
+    #     sfreq = 250.0
+    #     duration = 30.0
+
+    #     onsets = np.arange(n_trials, dtype=float) * duration
+    #     durations = np.full(n_trials, duration, dtype=float)
+
+    #     descriptions = []
+    #     for i in range(n_trials):
+    #         trial_id = str(i + 1)
+    #         if trial_id not in FACED_STAGE_MAP:
+    #             raise KeyError(f"Trial id {trial_id} missing from FACED_STAGE_MAP")
+    #         descriptions.append(str(FACED_STAGE_MAP[trial_id]))
+
+    #     return mne.Annotations(
+    #         onset=onsets,
+    #         duration=durations,
+    #         description=descriptions,
+    #         orig_time=None,
+    #     )
+
     def load_labels(self, file_path: Path, raw: mne.io.BaseRaw = None) -> mne.Annotations:
-        n_trials = 28
+        with open(file_path, "rb") as f:
+            data = pickle.load(f)
+
+        data = data[:, :30, :]
+
+        if not isinstance(data, np.ndarray) or data.ndim != 3:
+            raise ValueError(
+                f"Unexpected FACED pkl content: type={type(data)}, "
+                f"shape={getattr(data, 'shape', None)}"
+            )
+
+        n_trials, n_channels, n_samples = data.shape
         sfreq = 250.0
-        duration = 30.0
+        duration = n_samples / sfreq
+
+        if n_trials != 28:
+            raise ValueError(f"Expected 28 trials for FACED, got {n_trials} in {file_path}")
 
         onsets = np.arange(n_trials, dtype=float) * duration
         durations = np.full(n_trials, duration, dtype=float)
@@ -127,8 +176,7 @@ class FACED_preprocessor(PreprocessorModel):
             description=descriptions,
             orig_time=None,
         )
-
-    
+        
     def get_subject_id(self, file_path: Path) -> str:
         return file_path.stem
 

@@ -8,7 +8,11 @@ from datasets import (PreprocessorModel,
         BCI2A_preprocessor, 
         SIENA_preprocessor,
         CHBMIT_preprocessor,
-        SHUMI_preprocessor  
+        SHUMI_preprocessor,
+        BCI2020WORDS_preprocessor,
+        KARAONE_preprocessor,
+        CHISCO_preprocessor,
+        METASPEECH_preprocessor,
 )
 from pathlib import Path
 from utils import init_logger, open_out_file
@@ -50,6 +54,40 @@ def extract_labeled_segments_idx(ann: mne.Annotations, sfreq: float, min_len_sec
 
 LastMode = Literal["drop", "pad_zero", "repeat", "last"]
 WindowMode = Literal["center", "none"]
+
+
+def safe_channelwise_normalize(
+    x: np.ndarray,
+    eps: float = 1e-12,
+) -> tuple[np.ndarray, int, int]:
+    finite = np.isfinite(x)
+    non_finite_count = int(x.size - np.count_nonzero(finite))
+
+    finite_count = finite.sum(axis=1, keepdims=True)
+    x_filled = np.where(finite, x, 0.0)
+    mean = np.divide(
+        x_filled.sum(axis=1, keepdims=True),
+        finite_count,
+        out=np.zeros((x.shape[0], 1), dtype=np.float32),
+        where=finite_count > 0,
+    )
+
+    x_centered = np.where(finite, x - mean, 0.0)
+    var = np.divide(
+        np.square(x_centered).sum(axis=1, keepdims=True),
+        finite_count,
+        out=np.zeros((x.shape[0], 1), dtype=np.float32),
+        where=finite_count > 0,
+    )
+    std = np.sqrt(var, dtype=np.float32)
+
+    flat_or_bad = (~np.isfinite(std)) | (std <= eps)
+    flat_channel_count = int(np.count_nonzero(flat_or_bad))
+    denom = np.where(flat_or_bad, 1.0, std).astype(np.float32, copy=False)
+    x_norm = x_centered / denom
+
+    return x_norm.astype(np.float32, copy=False), non_finite_count, flat_channel_count
+
 
 def extract_windows_from_array(
     x: np.ndarray,
@@ -183,9 +221,17 @@ def preprocess_one_file(
     x = raw.get_data().astype(np.float32)
 
     if normalize:
-        mean = np.mean(x, axis=1, keepdims=True)
-        std = np.std(x, axis=1, keepdims=True)
-        x = (x - mean) / std
+        x, non_finite_count, flat_channel_count = safe_channelwise_normalize(x)
+        if logger and non_finite_count > 0:
+            logger.warning(
+                f"{file_path}: replaced {non_finite_count} non-finite sample(s) before normalization."
+            )
+        if logger and flat_channel_count > 0:
+            logger.warning(
+                f"{file_path}: {flat_channel_count} flat/invalid channel(s) normalized as zeros."
+            )
+    elif logger and not np.isfinite(x).all():
+        logger.warning(f"{file_path}: raw data contains non-finite values before windowing.")
     
     # I don't think trimming is a good idea and needs to be implemented
 
@@ -204,6 +250,7 @@ def preprocess_one_file(
 
     label_counts = {}
     n_win_total = 0
+    skipped_non_finite = 0
     start = global_window_idx
     with out_file_env.begin(write=True) as txn:
         for i, (s, e, y_label) in enumerate(seg_idx):
@@ -212,8 +259,17 @@ def preprocess_one_file(
             for x_w in extract_windows_from_array(x_seg, sfreq=sfreq, window_size_sec=window_size_sec, overlap_sec=overlap_sec, last="last"):
                 if win_count == 0 and (i == 0 or i%50 == 0):
                     logger.info(f"Window shape: {x_w.shape}")
-                label_counts[y_label] = label_counts.get(y_label, 0) + 1
                 win_count += 1
+
+                if not np.isfinite(x_w).all():
+                    skipped_non_finite += 1
+                    if logger and skipped_non_finite <= 5:
+                        logger.warning(
+                            f"{file_path}: skipped non-finite window segment={i}, window={win_count - 1}."
+                        )
+                    continue
+
+                label_counts[y_label] = label_counts.get(y_label, 0) + 1
                 n_win_total += 1
 
                 key = global_window_idx.to_bytes(8, "big")
@@ -235,6 +291,8 @@ def preprocess_one_file(
         sub2range.setdefault(subject_id, []).append((start, end))
 
     if logger:
+        if skipped_non_finite > 0:
+            logger.warning(f"{file_path}: skipped {skipped_non_finite} non-finite window(s).")
         logger.info(f"Finished processing file: {file_path} | Extracted {n_win_total} windows | label distribution: {label_counts}")
     
     return n_win_total, global_window_idx, sub2range
@@ -244,6 +302,7 @@ def get_preprocessor(
     dataset_name: str,
     dataset_dir: str,
     logger: Logger = None,
+    dataset_cfg: Dict[str, Any] = {},
     ) -> PreprocessorModel:
     if dataset_name == "TUEG":
         preprocessor = TUEG_preprocessor(
@@ -296,6 +355,31 @@ def get_preprocessor(
             dataset_dir,
             logger=logger,
         )
+    elif dataset_name == "BCI2020":
+        preprocessor = BCI2020WORDS_preprocessor(
+            dataset_dir,
+            logger=logger,
+        )
+    elif dataset_name == "KARAONE":
+        preprocessor = KARAONE_preprocessor(
+            dataset_dir,
+            logger=logger,
+        )
+    elif dataset_name == "CHISCO":
+        preprocessor = CHISCO_preprocessor(
+            dataset_dir,
+            logger=logger,
+            segment=dataset_cfg.get("segment", "recall"),
+        )
+    elif dataset_name == "METASPEECH":
+        preprocessor = METASPEECH_preprocessor(
+            dataset_dir,
+            logger=logger,
+            tmin=dataset_cfg.get("tmin", -0.2),
+            tmax=dataset_cfg.get("tmax", 0.8),
+            skip_start_sec=dataset_cfg.get("skip_start_sec", 60.0),
+            include_tapping=dataset_cfg.get("include_tapping", False),
+        )
     else:
         raise ValueError(f"Unknown dataset name: {dataset_name}")
 
@@ -310,13 +394,15 @@ def preprocess_dataset(
     logger: Logger = None,
     debug: bool  = False,
     log_step: int = 20,
-    preprocessing_config: Dict[str, Any] = {}
+    preprocessing_config: Dict[str, Any] = {},
+    dataset_cfg: Dict[str, Any] = {},
     ) -> None:
 
     preprocessor = get_preprocessor(
         dataset_name,
         dataset_dir,
         logger=logger,
+        dataset_cfg=dataset_cfg,
     )
 
     files = preprocessor.get_files(
@@ -397,4 +483,3 @@ def preprocess_dataset(
 #         log_step=log_step,
 #         preprocessing_config=preprocessing_params,
 #     )
-

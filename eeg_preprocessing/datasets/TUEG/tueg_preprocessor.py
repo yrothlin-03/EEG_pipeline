@@ -113,7 +113,7 @@ class TUEG_preprocessor(PreprocessorModel):
     def load_data(self, file_path: Path) -> mne.io.BaseRaw:
         return mne.io.read_raw_edf(file_path.as_posix(), preload=True, verbose=False)
     
-    def load_labels(self, file_path: Path) -> mne.Annotations:
+    def load_labels(self, file_path: Path, raw: mne.io.BaseRaw = None) -> mne.Annotations:
         return None
     
     def get_subject_id(self, file_path: Path) -> str:

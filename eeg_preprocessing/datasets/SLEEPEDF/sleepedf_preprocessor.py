@@ -17,11 +17,15 @@ SLEEPEDFX_STAGE_MAP = {
     "Movement time": -1,
 }
 
+WAKE_LABEL = 0
+SLEEP_LABELS = {1, 2, 3, 4}
+
 
 class SLEEPEDF_preprocessor(PreprocessorModel):
-    def __init__(self, dataset_dir: str | Path, logger: Logger = None):
+    def __init__(self, dataset_dir: str | Path, logger: Logger = None, wake_minutes: float = 30.0):
 
-        super().__init__(dataset_dir, logger)  
+        super().__init__(dataset_dir, logger)
+        self.max_wake_sec = float(wake_minutes) * 60.0
 
     def get_files(self, ratio: float, seed: int = 42) -> list[Path]:
         if not (0.0 < ratio <= 1.0):
@@ -84,30 +88,44 @@ class SLEEPEDF_preprocessor(PreprocessorModel):
         hyp = self._get_hypno_file(file_path)
         ann = mne.read_annotations(hyp.as_posix())
 
-        onsets, durations, descriptions = [], [], []
-
+        events = []
         for onset, dur, desc in zip(ann.onset, ann.duration, ann.description):
-            desc = str(desc)
+            class_id = SLEEPEDFX_STAGE_MAP.get(str(desc), -1)
+            dur = float(dur) if float(dur) > 0 else 0.0
+            events.append((float(onset), dur, class_id))
 
-            if desc not in SLEEPEDFX_STAGE_MAP:
-                class_id = -1
-            else:
-                class_id = SLEEPEDFX_STAGE_MAP[desc]
+        sleep_starts = [o for o, d, c in events if c in SLEEP_LABELS]
+        sleep_ends = [o + d for o, d, c in events if c in SLEEP_LABELS]
 
-            onsets.append(float(onset))
-            durations.append(float(dur) if float(dur) > 0 else 0.0)
-            descriptions.append(str(class_id))  
+        if sleep_starts:
+            keep_start = min(sleep_starts) - self.max_wake_sec
+            keep_end = max(sleep_ends) + self.max_wake_sec
+        else:
+            keep_start, keep_end = float("-inf"), float("inf")
+
+        onsets, durations, descriptions = [], [], []
+        for onset, dur, class_id in events:
+            if class_id == WAKE_LABEL:
+                new_onset = max(onset, keep_start)
+                new_end = min(onset + dur, keep_end)
+                if new_end <= new_onset:
+                    continue
+                onset, dur = new_onset, new_end - new_onset
+
+            onsets.append(onset)
+            durations.append(dur)
+            descriptions.append(str(class_id))
 
         return mne.Annotations(
             onset=onsets,
             duration=durations,
             description=descriptions,
-            orig_time=ann.orig_time,  
+            orig_time=ann.orig_time,
         )
         
     def get_subject_id(self, file_path: Path) -> str:
         m = re.match(r"^(SC|ST)(\d+)[A-Z]\d-PSG\.edf$", file_path.name)
         if m:
-            return f"{m.group(1)}{m.group(2)}"
+            return f"{m.group(1)}{m.group(2)[:-1]}"
         return file_path.stem.split("-")[0]
 

@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Literal
+from typing import List, Literal, Sequence
 import lmdb
 import pickle
 import re
@@ -15,13 +15,16 @@ from .channel_mapping import (
     TUEG_MAPPING,
     TUAB_MAPPING,
     PHYSIONET_MAPPING,
-    SLEEPEDFX_MAPPING,
+    SLEEPEDF_MAPPING,
     SEEDV_MAPPING,
     BCI2A_MAPPING,
     FACED_MAPPING,
     SIENA_MAPPING,
     SHUMI_MAPPING,
     CHBMIT_MAPPING,
+    BCI2020_MAPPING,
+    KARAONE_MAPPING,
+    CHISCO_MAPPING,
 
 )
 
@@ -48,11 +51,27 @@ ChannelMode = Literal["raw", "mapped"]
 
 
 class CustomDataset(Dataset):
-    def __init__(self, lmdb_path: str, subject_ids: List[str], channel_mode: ChannelMode = "mapped", debug=False):
+    def __init__(
+        self,
+        lmdb_path: str,
+        subject_ids: Sequence[str] | None = None,
+        channel_mode: ChannelMode = "mapped",
+        debug=False,
+        return_ch_names: bool = False,
+        ids: Sequence[str] | None = None,
+    ):
         self.lmdb_path = lmdb_path
-        self.subject_ids = list(subject_ids)
+        if subject_ids is not None and ids is not None and list(subject_ids) != list(ids):
+            raise ValueError("Provide either subject_ids or ids, not two different lists.")
+
+        selected_ids = ids if ids is not None else subject_ids
+        if selected_ids is None:
+            raise ValueError("CustomDataset requires a list of subject IDs via subject_ids or ids.")
+
+        self.subject_ids = list(selected_ids)
         self.channel_mode = channel_mode
         self.debug = debug
+        self.return_ch_names = return_ch_names
         self._cache = {}
         self.env = None
 
@@ -64,8 +83,8 @@ class CustomDataset(Dataset):
             self.mapping = TUAB_MAPPING
         elif name.startswith("physionetmi"):
             self.mapping = PHYSIONET_MAPPING
-        elif name.startswith("sleepedfx"):
-            self.mapping = SLEEPEDFX_MAPPING
+        elif name.startswith("sleepedf"):
+            self.mapping = SLEEPEDF_MAPPING
         elif name.startswith("seedv"):
             self.mapping = SEEDV_MAPPING
         elif name.startswith("bci2a"):
@@ -78,6 +97,12 @@ class CustomDataset(Dataset):
             self.mapping = SHUMI_MAPPING
         elif name.startswith("chbmit"):
             self.mapping = CHBMIT_MAPPING
+        elif name.startswith("bci2020"):
+            self.mapping = BCI2020_MAPPING
+        elif name.startswith("karaone"):
+            self.mapping = KARAONE_MAPPING
+        elif name.startswith("chisco"):
+            self.mapping = CHISCO_MAPPING
         else:
             raise ValueError(f"Unknown dataset name from path stem: {p.stem}")
 
@@ -149,7 +174,45 @@ class CustomDataset(Dataset):
         self._cache[key] = (keep_idx, keep_names)
         return self._cache[key]
 
+    def _get_channels_info(self, idx: int = 0):
+        self._init_env()
 
+        global_idx = int(self.indices[idx])
+        key = global_idx.to_bytes(8, "big")
+
+        with self.env.begin(write=False) as txn:
+            blob = txn.get(key)
+
+        rec = pickle.loads(blob)
+        ch_names = rec.get("ch_names", [])
+
+        mapping_used = {}
+        kept_names = []
+
+        if self.channel_mode == "raw":
+            eeg_idx = [i for i, ch in enumerate(ch_names) if is_eeg_channel(ch)]
+            kept_names = [ch_names[i] for i in eeg_idx]
+
+            for ch in kept_names:
+                mapping_used[ch] = ch
+
+        else:
+            keep_idx, kept_names = self._keep(ch_names)
+
+            for i, ch in enumerate(ch_names):
+                n = _normalize_ch_name(ch)
+                m = self.mapping.get(n)
+                if m in kept_names:
+                    mapping_used[ch] = m
+
+        return {
+            "original_channels": ch_names,
+            "kept_channels": kept_names,
+            "mapping": mapping_used,
+            "n_original_channels": len(ch_names),
+            "n_kept_channels": len(kept_names),
+        }
+        
     def __getitem__(self, i):
         self._init_env()
 
@@ -158,30 +221,32 @@ class CustomDataset(Dataset):
 
         with self.env.begin(write=False) as txn:
             blob = txn.get(key)
+
         rec = pickle.loads(blob)
 
         x = torch.from_numpy(rec["x"])
         y = int(rec["label"])
+        ch_names = rec.get("ch_names", [])
 
         if self.channel_mode == "raw":
-            ch_names = rec.get("ch_names", [])
-            eeg_idx = [i for i, ch in enumerate(ch_names) if is_eeg_channel(ch)]
-            if self.debug:
-                print(f"Original channels ({len(ch_names)}) : {ch_names}")
-                print(f"EEG channels ({len(eeg_idx)}) : {[ch_names[i] for i in eeg_idx]}")
-            if len(eeg_idx) == 0:
-                return x, y
-            x = x[eeg_idx].contiguous()
+            eeg_idx = [j for j, ch in enumerate(ch_names) if is_eeg_channel(ch)]
+            kept_ch_names = [ch_names[j] for j in eeg_idx]
+
+            if len(eeg_idx) > 0:
+                x = x[eeg_idx].contiguous()
+            else:
+                kept_ch_names = ch_names
+
+            if self.return_ch_names:
+                return x, y, kept_ch_names
             return x, y
 
-        ch_names = rec.get("ch_names", [])
-        if self.debug:
-            print(f"Original channels ({len(ch_names)}) : {ch_names}")
         keep_idx, keep_names = self._keep(ch_names)
-        if self.debug:
-            print(f"Kept channels ({len(keep_names)}): {keep_names}")
         x = x[keep_idx].contiguous()
-        x, _ = reorder_and_pad(x, keep_names, TARGET_CHS)
+        x, kept_ch_names = reorder_and_pad(x, keep_names, TARGET_CHS)
+
+        if self.return_ch_names:
+            return x, y, kept_ch_names
         return x, y
  
 
@@ -204,46 +269,3 @@ def debug_idx(ds: CustomDataset, i: int):
     missing = [c for c in TARGET_CHS if c not in keep_names]
     print("missing from TARGET_CHS:", missing)
 
-
-if __name__ == "__main__":
-    tueg_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/TUEG/tueg.lmdb"
-    tuab_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/TUAB/tuab.lmdb"
-    physionetmi_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/PHYSIONETMI/physionetmi.lmdb"
-    sleepedfx_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SLEEPEDF/sleepedfx.lmdb"
-    seedv_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SEEDV/seedv.lmdb"
-    bci2a_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/BCI2A/bci2a.lmdb"
-    faced_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/FACED/faced.lmdb"
-    siena_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SIENA/siena.lmdb"
-    shumi_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/SHUMI/shumi.lmdb"
-    chbmit_path = "/projects/EEG-foundation-model/RECH202/data_preprocessed/CHBMIT/chbmit.lmdb"
-
-    path = seedv_path
-
-    dataset = CustomDataset(
-        lmdb_path= path,
-        subject_ids=get_subject_ids(Path(path)),
-        channel_mode="raw",
-        debug=True
-    )
-
-    print(f"Dataset length: {len(dataset)}")
-
-    x, y = dataset[0]
-    print("x shape:", x.shape)
-    mask = (x == 0).all(dim=1)
-
-    print(mask.shape)  
-    print(mask)
-
-    # print(f"starting to compute label distribution for dataset at {path}")
-    # label_dataset = CustomDataset(
-    #     lmdb_path= path,
-    #     subject_ids=get_subject_ids(Path(path)),
-    #     channel_mode="mapped",
-    #     debug=False
-    # )
-    # y = {}
-    # for i in range(len(label_dataset)):
-    #     _, label = label_dataset[i]
-    #     y[label] = y.get(label, 0) + 1
-    # print("Label distribution:", y)

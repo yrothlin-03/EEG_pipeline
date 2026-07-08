@@ -60,7 +60,7 @@ PHYSIONET_MAPPING = {
     "T3": "T7", "T4": "T8", "T5": "P7", "T6": "P8",
 }
 
-SLEEPEDFX_MAPPING = {
+SLEEPEDF_MAPPING = {
     "FPZ": "FZ",
     "CZ":  "CZ",
     "PZ":  "PZ",
@@ -232,6 +232,211 @@ CHBMIT_MAPPING = {
     "FT10-T8":  "T8",
     "FT9-FT10": "T7",
     "FT10-T8":  "T8",
+}
+
+KARAONE_MAPPING = {
+    "FP1": "FP1",
+    "FP2": "FP2",
+
+    "F3": "F3",
+    "F4": "F4",
+    "F7": "F7",
+    "F8": "F8",
+    "FZ": "FZ",
+
+    "C3": "C3",
+    "C4": "C4",
+    "CZ": "CZ",
+
+    "P3": "P3",
+    "P4": "P4",
+    "P7": "P7",
+    "P8": "P8",
+    "PZ": "PZ",
+
+    "O1": "O1",
+    "O2": "O2",
+
+    "T7": "T7",
+    "T8": "T8",
+
+    "T3": "T7",
+    "T4": "T8",
+    "T5": "P7",
+    "T6": "P8",
+
+    "FC5": "F7",
+    "FC3": "F3",
+    "FC1": "F3",
+    "FCZ": "FZ",
+    "FC2": "F4",
+    "FC4": "F4",
+    "FC6": "F8",
+
+    "CP5": "P7",
+    "CP3": "P3",
+    "CP1": "P3",
+    "CPZ": "PZ",
+    "CP2": "P4",
+    "CP4": "P4",
+    "CP6": "P8",
+
+    "PO7": "O1",
+    "PO3": "O1",
+    "POZ": "PZ",
+    "PO4": "O2",
+    "PO8": "O2",
+
+    "OZ": "O1",
+}
+
+
+
+CHISCO_MAPPING = {
+    # direct 10-20 matches
+    "FP1": "FP1", "FP2": "FP2",
+    "F7": "F7", "F3": "F3", "FZ": "FZ", "F4": "F4", "F8": "F8",
+    "T7": "T7", "C3": "C3", "CZ": "CZ", "C4": "C4", "T8": "T8",
+    "P7": "P7", "P3": "P3", "PZ": "PZ", "P4": "P4", "P8": "P8",
+    "O1": "O1", "O2": "O2",
+
+    # midline extended
+    "FPZ":  "FZ",
+    "AFZ":  "FZ",
+    "FCZ":  "FZ",
+    "FCCZ": "CZ",
+    "CPPZ": "PZ",
+    "POZ":  "PZ",
+    "PPOZ": "PZ",
+    "POOZ": "O1",
+    "OZ":   "O1",
+
+    # frontal extended
+    "AF3": "F3", "AF4": "F4",
+    "AF7": "F7", "AF8": "F8",
+    "F1": "FZ",  "F2": "FZ",
+    "F5": "F7",  "F6": "F8",
+    "FC1": "F3", "FC2": "F4",
+    "FC3": "F3", "FC4": "F4",
+    "FC5": "F7", "FC6": "F8",
+
+    # fronto-temporal
+    "FT7": "T7", "FT8": "T8",
+    "FT9": "T7", "FT10": "T8",
+
+    # half-step frontal (extended 10-20 'h' electrodes)
+    "FFC1H": "FZ",  "FFC2H": "FZ",
+    "FFC3H": "F3",  "FFC4H": "F4",
+    "FFC5H": "F7",  "FFC6H": "F8",
+    "FFT7H": "F7",  "FFT8H": "F8",
+    "AFF5H": "F7",  "AFF6H": "F8",
+
+    # fronto-central (between FC and C)
+    "FCC1H": "CZ",  "FCC2H": "CZ",
+    "FCC3H": "C3",  "FCC4H": "C4",
+    "FCC5H": "C3",  "FCC6H": "C4",
+
+    # fronto-temporal half-step
+    "FTT7H": "T7",   "FTT8H": "T8",
+    "FTT9H": "T7",   "FTT10H": "T8",
+
+    # central extended
+    "C1": "CZ", "C2": "CZ",
+    "C5": "C3", "C6": "C4",
+
+    # centro-parietal half-step
+    "CCP1H": "PZ",  "CCP2H": "PZ",
+    "CCP3H": "P3",  "CCP4H": "P4",
+    "CCP5H": "P7",  "CCP6H": "P8",
+
+    # temporal-parietal
+    "T9": "T7",   "T10": "T8",
+    "TP7": "T7",  "TP8": "T8",
+    "TTP7H": "T7", "TTP8H": "T8",
+    "TPP5H": "P7", "TPP8H": "P8",
+
+    # parietal extended
+    "P5": "P7",  "P6": "P8",
+    "P9": "P7",  "P10": "P8",
+    "P11": "P7", "P12": "P8",
+    "CP1": "PZ", "CP2": "PZ",
+    "CP3": "P3", "CP4": "P4",
+
+    # centro-parietal (half-step, parietal side)
+    "CPP1H": "PZ",  "CPP2H": "PZ",
+    "CPP3H": "P3",  "CPP4H": "P4",
+    "CPP5H": "P7",  "CPP6H": "P8",
+
+    # parieto-occipital
+    "PO1": "O1",  "PO2": "O2",
+    "PO3": "O1",  "PO4": "O2",
+    "PO9": "O1",  "PO10": "O2",
+    "PO11": "O1", "PO12": "O2",
+    "PPO1": "O1", "PPO2": "O2",
+    "PPO7": "O1", "PPO8": "O2",
+
+    # occipital half-step
+    "OI1": "O1",    "OI2": "O2",
+    "POO3": "O1",   "POO4": "O2",
+    "POO7": "O1",   "POO8": "O2",
+    "POO9H": "O1",  "POO10H": "O2",
+    "POO11H": "O1", "POO12H": "O2",
+}
+
+BCI2020_MAPPING = {
+    "FP1": "FP1",
+    "FP2": "FP2",
+
+    "F3": "F3",
+    "F4": "F4",
+    "F7": "F7",
+    "F8": "F8",
+    "FZ": "FZ",
+
+    "C3": "C3",
+    "C4": "C4",
+    "CZ": "CZ",
+
+    "P3": "P3",
+    "P4": "P4",
+    "P7": "P7",
+    "P8": "P8",
+    "PZ": "PZ",
+
+    "O1": "O1",
+    "O2": "O2",
+
+    "T7": "T7",
+    "T8": "T8",
+
+    "T3": "T7",
+    "T4": "T8",
+    "T5": "P7",
+    "T6": "P8",
+
+    "FC5": "F7",
+    "FC3": "F3",
+    "FC1": "F3",
+    "FCZ": "FZ",
+    "FC2": "F4",
+    "FC4": "F4",
+    "FC6": "F8",
+
+    "CP5": "P7",
+    "CP3": "P3",
+    "CP1": "P3",
+    "CPZ": "PZ",
+    "CP2": "P4",
+    "CP4": "P4",
+    "CP6": "P8",
+
+    "PO7": "O1",
+    "PO3": "O1",
+    "POZ": "PZ",
+    "PO4": "O2",
+    "PO8": "O2",
+
+    "OZ": "O1",
 }
 
 
